@@ -151,29 +151,29 @@
             </div>
             <div class="editor" id="text1">
                 <textarea id="code" name="code">
-{
-    "id": 1001,
-    "type": "donut",
-    "name": "Cake",
-    "description": "https://en.wikipedia.org/wiki/Doughnut",
-    "price": 2.55,
-    "available": {
-        store: null,
-        warehouse: true
-    },
-    "toppings": [
-        { "id": 5001, "type": "None" },
-        { "id": 5002, "type": "Glazed" },
-        { "id": 5005, "type": "Sugar" },
-        { "id": 5003, "type": "Chocolate" },
-        { "id": 5004, "type": "Maple" }
-    ],
-    "uuids": [
-        "826b23ce-2669-4122-981f-3e2e4429159d",
-        "e32111a0-6a87-49ab-b58f-a01bf8d28ba0",
-        "c055a894-698e-41c0-b85f-7510a7351d9d"
-    ]
-}
+Two roads diverged in a yellow wood,
+And sorry I could not travel both
+And be one traveler, long I stood
+And looked down one as far as I could
+To where it bent in the undergrowth;
+
+Then took the other, as just as fair,
+And having perhaps the better claim,
+Because it was grassy and wanted wear;
+Though as for that the passing there
+Had worn them really about the same,
+
+And both that morning equally lay
+In leaves no step had trodden black.
+Oh, I kept the first for another day!
+Yet knowing how way leads on to way,
+I doubted if I should ever come back.
+
+I shall be telling this with a sigh
+Somewhere ages and ages hence:
+Two roads diverged in a wood, and I—
+I took the one less traveled by,
+And that has made all the difference.
                 </textarea>
             </div>
             <div class="resizer fa-solid fa-ellipsis-vertical fa-1x" id="resizer"></div>
@@ -489,11 +489,11 @@
                 viewer.innerHTML = formatPre(result);
             }
             function convert_title_case() {
-                var wordsList = editor.getValue().toLowerCase().split(' ');
-                for (var i = 0; i < wordsList.length; i++) {
-                    wordsList[i] = wordsList[i].charAt(0).toUpperCase() + wordsList[i].slice(1);
-                }
-                viewer.innerHTML = formatPre(wordsList.join(' '));
+                var text = editor.getValue().toLowerCase();
+                text = text.replace(/([_\-a-zA-Z0-9]+)/g, function(word) {
+                    return word.charAt(0).toUpperCase() + word.slice(1);
+                });
+                viewer.innerHTML = formatPre(text);
             }
             function convert_inverse_case() {
                 var origin_txt = editor.getValue();
