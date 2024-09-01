@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>re</title>
+
+        <link rel="icon" href="./magnum.ico" type="image/x-icon">
+
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.0.0/diff.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.1/styles/github.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html-ui.min.js"></script> -->
+
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/perl/perl.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/abbott.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/elegant.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/mdn-like.min.css" /> -->
+        
+
+        <!-- mode -->
+        <script src="./codemirror/codemirror-5.65.16/lib/codemirror.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/perl/perl.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/python/python.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/clike/clike.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/shell/shell.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/sql/sql.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/markdown/markdown.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/gfm/gfm.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/rst/rst.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/mode/overlay.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/htmlmixed/htmlmixed.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/xml/xml.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/css/css.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/mode/javascript/javascript.js"></script>
+        <!-- theme -->
+        <link rel="stylesheet" type="text/css" href="./codemirror/codemirror-5.65.16/lib/codemirror.css" >
+        <link rel="stylesheet" type="text/css" href="./codemirror/codemirror-5.65.16/theme/abbott.css" >
+        <link rel="stylesheet" type="text/css" href="./codemirror/codemirror-5.65.16/theme/elegant.css" >
+        <link rel="stylesheet" type="text/css" href="./codemirror/codemirror-5.65.16/theme/eclipse.css" >
+        <link rel="stylesheet" type="text/css" href="./codemirror/codemirror-5.65.16/theme/mdn-like.css" >
+        <link rel="stylesheet" type="text/css" href="./codemirror/codemirror-5.65.16/theme/darcula.css" >
+        <!-- 代码折叠 -->
+        <link rel="stylesheet" href="./codemirror/codemirror-5.65.16/addon/fold/foldgutter.css"/>
+        <script src="./codemirror/codemirror-5.65.16/addon/fold/foldcode.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/fold/foldgutter.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/fold/brace-fold.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/fold/comment-fold.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/fold/indent-fold.js"></script>
+        <!-- search -->
+        <link rel="stylesheet" href="./codemirror/codemirror-5.65.16/addon/dialog/dialog.css"/>
+        <script src="./codemirror/codemirror-5.65.16/addon/dialog/dialog.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/search/search.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/search/searchcursor.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/search/jump-to-line.js"></script>
+        <script src="./codemirror/codemirror-5.65.16/addon/search/match-highlighter.js"></script>
+        <!-- 全屏模式 -->
+        <link rel="stylesheet" href="./codemirror/codemirror-5.65.16/addon/display/fullscreen.css">
+        <script src="./codemirror/codemirror-5.65.16/addon/display/fullscreen.js"></script>
+        <!-- 括号匹配 -->
+        <script src="./codemirror/codemirror-5.65.16/addon/edit/matchbrackets.js"></script>
+
+        <link rel="stylesheet" href="./codemirror/codemirror-5.65.16/addon/scroll/simplescrollbars.css">
+        <script src="./codemirror/codemirror-5.65.16/addon/scroll/simplescrollbars.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+        
+        <link rel="stylesheet" href="./custom.css"/>
+        
+    </head>
+    <body>
+        <div class="function-container">
+            <div class="tooltip fa-regular fa-question-circle fa-lg">
+                <ul class="tooltiptext">
+                    <li>支持正则表达式。</li>
+                </ul>
+            </div>
+            <select id="code-mode" class="selector" style="width: 7.5rem;" onchange="setLangMode(event)" title="编辑器语言">
+                <option value="text/plain" selected>Plain</option>
+                <option value="text/javascript">JavaScript</option>
+                <option value="text/x-csrc">C</option>
+                <option value="text/x-c++src">C++</option>
+                <option value="text/x-python">Python</option>
+                <option value="text/x-java">Java</option>
+                <option value="text/x-sh">Shell</option>
+                <option value="text/x-sql">SQL</option>
+                <option value="text/x-markdown">Markdown</option>
+                <option value="text/x-rst">Rst</option>
+                <option value="text/html">HTML</option>
+                <option value="text/css">CSS</option>
+                <option value="text/x-perl">Perl</option>
+            </select>
+            <select id="code-theme" class="selector" style="width: 6.4rem;" onchange="setTheme(event)" title="编辑器主题">
+                <option value="abbott">Abbott</option>
+                <option value="darcula">Darcula</option>
+                <option value="eclipse" selected>Eclipse</option>
+                <option value="elegant">Elegant</option>
+                <option value="mdn-like">Mdn-like</option>
+            </select>
+            <select id="font-size" class="selector" style="width: 4.2rem;" onchange="setFontSize(event)" title="字体大小">
+                <option value=24>24px</option>
+                <option value=22>22px</option>
+                <option value=20>20px</option>
+                <option value=18 selected>18px</option>
+                <option value=16>16px</option>
+                <option value=14>14px</option>
+                <option value=12>12px</option>
+                <option value=10>10px</option>
+                <option value=8 > 8px</option>
+            </select>
+            <label title="显示行号" class="check-box">
+                <input type="checkbox" id="check-lineno" onclick="checkLineNo(this)">LineNo</label>
+            <label title="长行自动换行" class="check-box">
+                <input type="checkbox" id="check-wrap" onclick="checkWrap(this)" checked>WrapOverflow</label>
+        </div>
+        <div class="popup" id="popup-info"></div>
+        <div class="editor-container">
+            <div id="button-list-left">
+                <ul>
+                    <li>
+                        <button class="button" onclick="convert_upper_case()" title="全大写">
+                            <i class="fa-sharp fa-solid fa-u fa-lg"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="button" onclick="convert_lower_case()" title="全小写">
+                            <i class="fa-sharp fa-solid fa-l fa-lg"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="button" onclick="convert_title_case()" title="词首大写">
+                            <i class="fa-sharp fa-solid fa-t fa-lg"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="button" onclick="convert_sentence_case()" title="句首大写">
+                            <i class="fa-sharp fa-solid fa-s fa-lg"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="button" onclick="convert_inverse_case()" title="大小写反转">
+                            <i class="fa-sharp fa-solid fa-i fa-lg"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div class="editor" id="text1">
+                <textarea id="code" name="code">
+{
+    "id": 1001,
+    "type": "donut",
+    "name": "Cake",
+    "description": "https://en.wikipedia.org/wiki/Doughnut",
+    "price": 2.55,
+    "available": {
+        store: null,
+        warehouse: true
+    },
+    "toppings": [
+        { "id": 5001, "type": "None" },
+        { "id": 5002, "type": "Glazed" },
+        { "id": 5005, "type": "Sugar" },
+        { "id": 5003, "type": "Chocolate" },
+        { "id": 5004, "type": "Maple" }
+    ],
+    "uuids": [
+        "826b23ce-2669-4122-981f-3e2e4429159d",
+        "e32111a0-6a87-49ab-b58f-a01bf8d28ba0",
+        "c055a894-698e-41c0-b85f-7510a7351d9d"
+    ]
+}
+                </textarea>
+            </div>
+            <div class="resizer fa-solid fa-ellipsis-vertical fa-1x" id="resizer"></div>
+            <div class="viewer" id="text2">
+                <div class="lineno-container">
+                    <div class="lineno" id="line-no"></div>
+                </div>
+                <div class="view-text" id="view" name="view"></div>
+            </div>
+            <div id="button-list-right">
+                <ul>
+                    <li>
+                        <button class="button fa-solid fa-bold fa-2x" onclick="changeFontWeight()" title="字体加粗"></button>
+                        <div class="icon-name">Bold</div>
+                    </li>
+                    <li>
+                        <button class="button fa-solid fa-paste fa-2x" id="paste" title="粘贴剪切板的文本到输入框"></button>
+                        <div class="icon-name">Paste</div>
+                    </li>
+                    <li>
+                        <button class="button fa-solid fa-copy fa-2x" id="copy" data-clipboard-target="#view" title="复制"></button>
+                        <div class="icon-name">Copy</div>
+                    </li>
+                    <li>
+                        <button class="button fa-solid fa-broom fa-2x" onclick="clearText()" title="清空文本框"></button>
+                        <div class="icon-name">Clear</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="input-container">
+            <input type="text" id="input-key1" oninput="toReplace(event)" placeholder="to replace" onfocus="this.placeholder=''" onblur="this.placeholder='to replace'">
+        </div>
+        <div class="input-container">
+            <input type="text" id="input-key2" oninput="replaceTo(event)" placeholder="replace to" onfocus="this.placeholder=''" onblur="this.placeholder='replace to'">
+        </div>
+        <script>
+            const area1 = document.getElementById("text1");
+            const area2 = document.getElementById("text2");
+            const viewer = document.getElementById("view");
+            const lineno = document.getElementById("line-no");
+            const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+                lineNumbers: true,
+                lineWrapping: true,
+                scrollbarStyle: "overlay",
+                indentUnit: 4,
+                mode: 'text/plain',
+                matchBrackets: true,
+                theme: 'eclipse',
+                maxHighlightLength: Infinity,
+                styleActiveLine: true,
+                foldGutter: true,
+                gutters:["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+                extraKeys: {
+                    "Ctrl-B": function(cm) {
+                        cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                    },
+                    "F11": function(cm) {
+                        cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                    },
+                    "Esc": function(cm) {
+                        if(cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+                    }
+                }
+            });
+            editor.on('change', () => {
+                replace();
+            });
+            editor.on('focus', () => {
+                area1.style.border = "2px solid rgba(11, 58, 77, 0.8)";
+            });
+            editor.on('blur', () => {
+                area1.style.border = "2px solid rgba(39, 64, 101, 0.3)";
+            });
+            function setLangMode(event) {
+                var mode = event.target.value;
+                editor.setOption("mode", mode);
+            }
+            function setTheme(event) {
+                var theme = event.target.value;
+                editor.setOption("theme", theme);
+            }
+            function setFontSize(event) {
+                var fs = event.target.value;
+                viewer.style.fontSize = fs + "px";
+                lineno.style.fontSize = fs + "px";
+                editor.getWrapperElement().style["font-size"] = fs + "px";
+                editor.refresh();
+            }
+
+            var toReplaceStr = "";
+            function toReplace(event) {
+                toReplaceStr = event.target.value;
+                markMatch();
+                replace();
+            }
+            function markMatch() {
+                editor.doc.getAllMarks().forEach(m => m.clear());
+                var cursor = editor.getSearchCursor(
+                    new RegExp(toReplaceStr), 
+                    CodeMirror.Pos(editor.firstLine(), 0), 
+                    {caseFold: true, multiline: true});
+                while(cursor.findNext()) {
+                    editor.markText(cursor.from(), cursor.to(), {className: 'match-highlight'});
+                }
+            }
+            var replaceToStr = "";
+            function replaceTo(event) {
+                replaceToStr = event.target.value;
+                replace();
+            }
+
+            function isMatch(src, tgt) {
+                return src.match(new RegExp(tgt));
+            }
+
+            function formatPre(text) {
+                return "<pre style='padding:0;margin:0'>" + text + "</pre>";
+            }
+            
+            function replace() {
+                var text = editor.getDoc().getValue("\n");
+                viewer.innerHTML = formatPre(text);
+                try {
+                    if (toReplaceStr.length > 0) {
+                        var re = new RegExp(toReplaceStr, 'g');
+                        text = text.replace(re, replaceToStr);
+                        viewer.innerHTML = formatPre(text);
+                    }
+                    if (showLineNo) {
+                        addLineNo();
+                    }
+                } catch (e) {
+                    reportError(e);
+                }
+            }
+            
+            window.onerror = function(message, source, lineno, colno, error) {
+                viewer.innerHTML = "<pre class='error'>" + error + "</pre>";
+                viewer.innerHTML += "<pre class='error'>" + "Line: " + lineno + ", Column: " + colno + "</pre>";
+            };
+            
+            function checkWrap(obj) {
+                if (obj.checked) {
+                    area2.style.display = "block";
+                    viewer.classList.remove("text-nowrap");
+                    viewer.classList.add("text-wrap");
+                    editor.setOption("lineWrapping", true);
+                    var ln = document.getElementById("check-lineno");
+                    ln.checked = false;
+                    checkLineNo(ln);
+                } else {
+                    viewer.classList.remove("text-wrap");
+                    viewer.classList.add("text-nowrap");
+                    editor.setOption("lineWrapping", false);
+                }
+            }
+            function forceWrap() {
+                viewer.classList.remove("text-nowrap");
+                viewer.classList.add("text-wrap");
+            }
+
+            var showLineNo = false;
+            function checkLineNo(obj) {
+                if (obj.checked) {
+                    var wrapper = document.getElementById("check-wrap");
+                    wrapper.checked = false;
+                    checkWrap(wrapper);
+                    showLineNo = true;
+                    area2.style.display = "flex";
+                } else {
+                    lineno.style.display = "none";
+                    showLineNo = false;
+                    area2.style.display = "block";
+                }
+                replace();
+            }
+            function addLineNo() {
+                const n = viewer.innerText.split("\n").filter(line => line.trim()).length;
+                var h = "";
+                for (var i = 1; i <= n; ++i) {
+                    h += i + "<br/>";
+                }
+                lineno.innerHTML = h;
+                lineno.style.width = n.toString().length * 13 + "px";
+                lineno.style.height = viewer.scrollHeight + "px";
+                lineno.style.display = "block";
+            }
+
+            var isBoldFont = true;
+            function changeFontWeight() {
+                if (isBoldFont) {
+                    viewer.classList.remove('bold-font');
+                    viewer.classList.add('normal-font');
+                } else {
+                    viewer.classList.remove('normal-font');
+                    viewer.classList.add('bold-font');
+                }
+                isBoldFont = !isBoldFont;
+            }
+            function clearText() {
+                editor.setValue("");
+                replace();
+            }
+            var isOnView = false;
+            area1.addEventListener("mouseenter", function(){
+                isOnView = false;
+            });
+            area2.addEventListener("mouseenter", function(){
+                isOnView = true;
+            });
+            viewer.addEventListener("mouseenter", function(){
+                isOnView = true;
+            });
+            document.addEventListener("keydown", function(event) {
+                var textarea = document.getElementById('text2');
+                // 光标在 viewer 文本框才触发全屏快捷键
+                if (isOnView && (event.key == "F11" || (event.ctrlKey && (event.key == 'b' || event.key == 'B')))) {
+                    if (event.key == "F11") event.preventDefault();
+                    console.log("fullscreen");
+                    textarea.classList.toggle("fullscreen");
+                }
+                if (textarea.classList.contains("fullscreen")) {
+                    if (event.key == "Escape") {
+                        console.log("exit fullscreen");
+                        textarea.classList.toggle("fullscreen");
+                    }
+                }
+            });
+            window.addEventListener("load", replace());
+            window.addEventListener("load", forceWrap());
+            // 监听 copy 行为，把拷贝文本中的空行删除
+            document.addEventListener('copy', (event) => {
+                var toCopy = document.getSelection().toString();
+                // 把 html 的 &nbsp; 替换回空格
+                var toCopy = toCopy.replace(/\u00A0/g, " ");
+                var lines = toCopy.split("\n").filter(line => line.trim());
+                // console.log(lines);
+                var toPaste = lines.join("\n");
+                event.clipboardData.setData('text/plain', toPaste);
+                event.preventDefault();
+            });
+            const clipboard = new ClipboardJS('.button');
+            function popElement(info, boxName, pos, timeout) {
+                var box = document.getElementById(boxName);
+                var boxRect = box.getBoundingClientRect();
+                var popup = document.getElementById("popup-info");
+                popup.style.display = 'flex';
+                popup.innerText = info;
+                var ppRect = popup.getBoundingClientRect();
+                if (pos === "under") {
+                    popup.style.top = boxRect.bottom + 20 + "px";
+                    popup.style.left = boxRect.left - (ppRect.width - boxRect.width) / 2 + "px";
+                } else if (pos === "center") {
+                    popup.style.top = boxRect.top + (boxRect.height - ppRect.height) / 2 + "px";
+                    popup.style.left = boxRect.left - (ppRect.width - boxRect.width) / 2 + "px";
+                }
+                setTimeout(() => {
+                    popup.style.display = 'none';
+                }, timeout);
+            }
+            clipboard.on('success', function(event) {
+                event.clearSelection();
+                popElement("复制完成", "text2", "center", 1000);
+            });
+            clipboard.on('error', function(event) {
+                console.log('复制失败 ' + event.action);
+                popElement("复制失败", "text2", "center", 1000);
+            });
+            document.getElementById("paste").addEventListener(
+                "click",
+                async(e) => {
+                    const text = await navigator.clipboard.readText();
+                    editor.setValue(text);
+                    popElement("粘贴完成", "text1", "center", 500);
+                }
+            );
+            // resize 
+            var startX; var startWidth1; var startWidth2;
+            const resizer = document.getElementById('resizer');
+            const text1 = resizer.previousElementSibling;
+            const text2 = resizer.nextElementSibling;
+            resizer.addEventListener('mousedown', function (e) {
+                startX = e.clientX;
+                startWidth1 = text1.offsetWidth;
+                startWidth2 = text2.offsetWidth;
+                document.documentElement.addEventListener('mousemove', resize, false); 
+                document.documentElement.addEventListener('mouseup', stopResize, false);
+            });
+            function resize(e) {
+                const delta = e.clientX - startX;
+                const newWidth1 = startWidth1 + delta;
+                const newWidth2 = startWidth2 - delta;
+                text1.style.width = newWidth1 + 'px';
+                text2.style.width = newWidth2 + 'px';
+            }
+            function stopResize() {
+                document.documentElement.removeEventListener('mousemove', resize, false); 
+                document.documentElement.removeEventListener('mouseup', stopResize, false);
+            }
+
+            // case converter
+            function convert_upper_case() {
+                viewer.innerHTML = formatPre(editor.getValue().toUpperCase());
+            }
+            function convert_lower_case() {
+                viewer.innerHTML = formatPre(editor.getValue().toLowerCase());
+            }
+            function convert_sentence_case() {
+                var result = editor.getValue().toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, function(c) {
+                    return c.toUpperCase()
+                });
+                viewer.innerHTML = formatPre(result);
+            }
+            function convert_title_case() {
+                var wordsList = editor.getValue().toLowerCase().split(' ');
+                for (var i = 0; i < wordsList.length; i++) {
+                    wordsList[i] = wordsList[i].charAt(0).toUpperCase() + wordsList[i].slice(1);
+                }
+                viewer.innerHTML = formatPre(wordsList.join(' '));
+            }
+            function convert_inverse_case() {
+                var origin_txt = editor.getValue();
+                var result = '';
+                var i = 0;
+                while (i < origin_txt.length) {
+                    var n = origin_txt.charAt(i);
+                    if (n == n.toLowerCase()) {
+                        result += n.toUpperCase();
+                    } else if (n == n.toUpperCase()) {
+                        result += n.toLowerCase();
+                    } else {
+                        result += n;
+                    }
+                    i += 1;
+                }
+                viewer.innerHTML = formatPre(result);
+            }
+
+        </script>
+    </body>
+</html>
