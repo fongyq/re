@@ -211,10 +211,10 @@ And that has made all the difference.
             </div>
         </div>
         <div class="input-container">
-            <input type="text" id="input-key1" oninput="toReplace(event)" placeholder="to replace" onfocus="this.placeholder=''" onblur="this.placeholder='to replace'">
+            <input type="text" id="input-key1" oninput="toReplace(this)" placeholder="to replace" onfocus="this.placeholder=''" onblur="this.placeholder='to replace'">
         </div>
         <div class="input-container">
-            <input type="text" id="input-key2" oninput="replaceTo(event)" placeholder="replace to" onfocus="this.placeholder=''" onblur="this.placeholder='replace to'">
+            <input type="text" id="input-key2" oninput="replaceTo(this)" placeholder="replace to" onfocus="this.placeholder=''" onblur="this.placeholder='replace to'">
         </div>
         <script>
             const area1 = document.getElementById("text1");
@@ -274,8 +274,9 @@ And that has made all the difference.
             }
 
             var toReplaceStr = "";
-            function toReplace(event) {
-                toReplaceStr = event.target.value;
+            function toReplace(ele) {
+                toReplaceStr = ele.value;
+                ele.style.width = (ele.value.length + 10) + "ch";
                 markMatch();
                 replace();
             }
@@ -290,8 +291,9 @@ And that has made all the difference.
                 }
             }
             var replaceToStr = "";
-            function replaceTo(event) {
-                replaceToStr = event.target.value;
+            function replaceTo(ele) {
+                replaceToStr = ele.value;
+                ele.style.width = (ele.value.length + 10) + "ch";
                 replace();
             }
 
