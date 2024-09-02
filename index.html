@@ -420,7 +420,9 @@ And that has made all the difference.
             });
             window.addEventListener("load", replace());
             window.addEventListener("load", forceWrap());
+            window.addEventListener("load", checkLineNo(lnCheck));
             // 监听 copy 行为，把拷贝文本中的空行删除
+            /*
             document.addEventListener('copy', (event) => {
                 var toCopy = document.getSelection().toString();
                 // 把 html 的 &nbsp; 替换回空格
@@ -431,6 +433,7 @@ And that has made all the difference.
                 event.clipboardData.setData('text/plain', toPaste);
                 event.preventDefault();
             });
+            */
             const clipboard = new ClipboardJS('.button');
             function popElement(info, boxName, pos, timeout) {
                 var box = document.getElementById(boxName);
@@ -527,7 +530,6 @@ And that has made all the difference.
                 }
                 viewer.innerHTML = formatPre(result);
             }
-            checkLineNo(lnCheck);
         </script>
         <style id="tab-style">
             .cm-tab{opacity: 0;}
