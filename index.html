@@ -327,6 +327,18 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 replace();
             }
 
+            function filterText(text) {
+                if (filterStr.length == 0) return text;
+                var lines = text.split("\n");
+                var result = [];
+                markMatch(filterStr);
+                var re = new RegExp(filterStr);
+                lines.forEach(line => {
+                    if (line.match(re)) result.push(line);
+                });
+                return result.join("\n");
+            }
+            
             function formatPre(text) {
                 return text;
                 // return "<pre style='padding:0;margin:0'>" + text + "</pre>";
@@ -334,6 +346,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             
             function replace() {
                 var text = editor.getDoc().getValue("\n");
+                text = filterText(text);
                 viewer.innerText = formatPre(text);
                 try {
                     if (toReplaceStr.length > 0) {
