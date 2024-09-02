@@ -269,7 +269,7 @@ input[type="text"]:focus {
     outline: none;
 }
 .function-container input[type="text"] {
-    border-radius: 5x;
+    border-radius: 5px;
     border: 2px solid rgba(39, 64, 101, 0.7);
     min-width: 10rem;
     max-width: 80rem;
