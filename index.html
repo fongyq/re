@@ -330,10 +330,10 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             }
 
             function filterText(text) {
+                markMatch(filterStr);
                 if (filterStr.length == 0) return text;
                 var lines = text.split("\n");
                 var result = [];
-                markMatch(filterStr);
                 var re = new RegExp(filterStr);
                 lines.forEach(line => {
                     if (line.match(re)) result.push(line);
