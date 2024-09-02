@@ -314,17 +314,18 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             }
 
             function formatPre(text) {
-                return "<pre style='padding:0;margin:0'>" + text + "</pre>";
+                return text;
+                // return "<pre style='padding:0;margin:0'>" + text + "</pre>";
             }
             
             function replace() {
                 var text = editor.getDoc().getValue("\n");
-                viewer.innerHTML = formatPre(text);
+                viewer.innerText = formatPre(text);
                 try {
                     if (toReplaceStr.length > 0) {
                         var re = new RegExp(toReplaceStr, 'gm');
                         text = text.replace(re, replaceToStr);
-                        viewer.innerHTML = formatPre(text);
+                        viewer.innerText = formatPre(text);
                     }
                     if (showLineNo) {
                         addLineNo();
@@ -512,10 +513,10 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
 
             // case converter
             function convert_upper_case() {
-                viewer.innerHTML = formatPre(editor.getValue().toUpperCase());
+                viewer.innerText = formatPre(editor.getValue().toUpperCase());
             }
             function convert_lower_case() {
-                viewer.innerHTML = formatPre(editor.getValue().toLowerCase());
+                viewer.innerText = formatPre(editor.getValue().toLowerCase());
             }
             function convert_sentence_case() {
                 var result = editor.getValue().toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, function(c) {
@@ -525,14 +526,14 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 result = result.replace(/\B-[a-z]/g, function(c) {
                     return c.toUpperCase()
                 });
-                viewer.innerHTML = formatPre(result);
+                viewer.innerText = formatPre(result);
             }
             function convert_title_case() {
                 var text = editor.getValue().toLowerCase();
                 text = text.replace(/([a-zA-Z][_'\-a-zA-Z0-9]*)/g, function(word) {
                     return word.charAt(0).toUpperCase() + word.slice(1);
                 });
-                viewer.innerHTML = formatPre(text);
+                viewer.innerText = formatPre(text);
             }
             function convert_inverse_case() {
                 var origin_txt = editor.getValue();
@@ -549,7 +550,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                     }
                     i += 1;
                 }
-                viewer.innerHTML = formatPre(result);
+                viewer.innerText = formatPre(result);
             }
         </script>
         <style id="tab-style">
