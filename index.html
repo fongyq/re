@@ -304,7 +304,7 @@ And that has made all the difference.
                 viewer.innerHTML = formatPre(text);
                 try {
                     if (toReplaceStr.length > 0) {
-                        var re = new RegExp(toReplaceStr, 'g');
+                        var re = new RegExp(toReplaceStr, 'gm');
                         text = text.replace(re, replaceToStr);
                         viewer.innerHTML = formatPre(text);
                     }
@@ -367,7 +367,7 @@ And that has made all the difference.
                 replace();
             }
             function addLineNo() {
-                const n = viewer.innerText.split("\n").filter(line => line.trim()).length;
+                const n = viewer.innerText.split("\n").length;
                 var h = "";
                 for (var i = 1; i <= n; ++i) {
                     h += i + "<br/>";
