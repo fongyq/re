@@ -354,3 +354,7 @@ input[type="text"]:focus {
 a {
     color: #d0c8c8;
 }
+
+.code {
+    color: orange;
+}
