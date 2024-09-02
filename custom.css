@@ -268,6 +268,13 @@ input[type="text"] {
 input[type="text"]:focus {
     outline: none;
 }
+.feature-container input[type="text"] {
+    border-radius: 5x;
+    border: 2px solid rgba(39, 64, 101, 0.7);
+    min-width: 10rem;
+    max-width: 80rem;
+    width: 10rem;
+}
 
 #button-list-left ul {
     list-style-type: none;
