@@ -337,12 +337,12 @@ input[type="text"]:focus {
 }
 
 .text-wrap {
-    white-space: normal; 
+    white-space: pre-wrap; 
     word-wrap: break-word; 
     overflow-wrap: break-word;
 }
 .text-nowrap {
-    white-space: nowrap; 
+    white-space: pre; 
     word-wrap: normal;
     overflow-wrap: normal;
 }
