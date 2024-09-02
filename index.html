@@ -115,7 +115,7 @@
                 <option value=8 > 8px</option>
             </select>
             <label title="显示行号" class="check-box">
-                <input type="checkbox" id="check-lineno" onclick="checkLineNo(this)">LineNo</label>
+                <input type="checkbox" id="check-lineno" onclick="checkLineNo(this)" checked>LineNo</label>
             <label title="显示 tab" class="check-box">
                 <input type="checkbox" id="check-tab" onclick="checkTabShow(this)">ShowTab</label>
             <label title="长行自动换行" class="check-box">
@@ -217,6 +217,7 @@ And that has made all the difference.
             const area1 = document.getElementById("text1");
             const area2 = document.getElementById("text2");
             const viewer = document.getElementById("view");
+            const lnCheck = document.getElementById("check-lineno");
             const lineno = document.getElementById("line-no");
             const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
                 lineNumbers: true,
@@ -337,8 +338,7 @@ And that has made all the difference.
                     viewer.classList.remove("text-nowrap");
                     viewer.classList.add("text-wrap");
                     editor.setOption("lineWrapping", true);
-                    var ln = document.getElementById("check-lineno");
-                    ln.checked = false;
+                    lnCheck.checked = false;
                     checkLineNo(ln);
                 } else {
                     viewer.classList.remove("text-wrap");
@@ -351,7 +351,7 @@ And that has made all the difference.
                 viewer.classList.add("text-wrap");
             }
 
-            var showLineNo = false;
+            var showLineNo = true;
             function checkLineNo(obj) {
                 if (obj.checked) {
                     var wrapper = document.getElementById("check-wrap");
@@ -527,6 +527,7 @@ And that has made all the difference.
                 }
                 viewer.innerHTML = formatPre(result);
             }
+            checkLineNo(lnCheck);
         </script>
         <style id="tab-style">
             .cm-tab{opacity: 0;}
