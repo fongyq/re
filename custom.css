@@ -268,7 +268,7 @@ input[type="text"] {
 input[type="text"]:focus {
     outline: none;
 }
-.feature-container input[type="text"] {
+.function-container input[type="text"] {
     border-radius: 5x;
     border: 2px solid rgba(39, 64, 101, 0.7);
     min-width: 10rem;
