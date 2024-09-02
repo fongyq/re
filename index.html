@@ -226,11 +226,11 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
         </div>
         <div class="input-container">
             <div class="inputer">
-                <input type="text" id="input-key3" oninput="filterLine(this)" placeholder="filter" onfocus="this.placeholder=''" onblur="this.placeholder='filter'">
+                <input type="text" id="input-key3" onchange="filterLine(this)" placeholder="filter" onfocus="this.placeholder=''" onblur="this.placeholder='filter'">
             </div>
             <div class="inputer">
-                <input type="text" id="input-key1" oninput="toReplace(this)" placeholder="to replace" onfocus="this.placeholder=''" onblur="this.placeholder='to replace'">
-                <input type="text" id="input-key2" oninput="replaceTo(this)" placeholder="replace to" onfocus="this.placeholder=''" onblur="this.placeholder='replace to'">
+                <input type="text" id="input-key1" onchange="toReplace(this)" placeholder="to replace" onfocus="this.placeholder=''" onblur="this.placeholder='to replace'">
+                <input type="text" id="input-key2" onchange="replaceTo(this)" placeholder="replace to" onfocus="this.placeholder=''" onblur="this.placeholder='replace to'">
             </div>
         </div>
         <script>
