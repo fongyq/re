@@ -123,6 +123,9 @@
                 <input type="checkbox" id="check-tab" onclick="checkTabShow(this)">ShowTab</label>
             <label title="长行自动换行" class="check-box">
                 <input type="checkbox" id="check-wrap" onclick="checkWrap(this)" checked>WrapOverflow</label>
+            <div class="input-container" style="display: inline-flex">
+                <input type="text" id="input-key3" oninput="filterLine(this)" placeholder="filter" onfocus="this.placeholder=''" onblur="this.placeholder='filter'">
+            </div>
         </div>
         <div class="popup" id="popup-info"></div>
         <div class="editor-container">
@@ -289,13 +292,12 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             function toReplace(ele) {
                 toReplaceStr = ele.value;
                 ele.style.width = (ele.value.length + 10) + "ch";
-                markMatch();
                 replace();
             }
-            function markMatch() {
+            function markMatch(target) {
                 editor.doc.getAllMarks().forEach(m => m.clear());
                 var cursor = editor.getSearchCursor(
-                    new RegExp(toReplaceStr), 
+                    new RegExp(target), 
                     CodeMirror.Pos(editor.firstLine(), 0), 
                     {caseFold: true, multiline: true});
                 while(cursor.findNext()) {
@@ -306,11 +308,23 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             function replaceTo(ele) {
                 replaceToStr = ele.value;
                 ele.style.width = (ele.value.length + 10) + "ch";
+                replaceToStr = replaceToStr.replace(/\\n/g, "@NEWLINE@");
                 replace();
+            }
+
+            function placeholderRecover() {
+                viewer.innerHTML = viewer.innerHTML.replace(/@NEWLINE@/g, "<br>");
             }
 
             function isMatch(src, tgt) {
                 return src.match(new RegExp(tgt));
+            }
+
+            var filterStr = "";
+            function filterLine(ele) {
+                filterStr = ele.value;
+                ele.style.width = (ele.value.length + 10) + "ch";
+                replace();
             }
 
             function formatPre(text) {
@@ -323,9 +337,11 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 viewer.innerText = formatPre(text);
                 try {
                     if (toReplaceStr.length > 0) {
+                        markMatch(toReplaceStr);
                         var re = new RegExp(toReplaceStr, 'gm');
                         text = text.replace(re, replaceToStr);
                         viewer.innerText = formatPre(text);
+                        placeholderRecover();
                     }
                     if (showLineNo) {
                         addLineNo();
