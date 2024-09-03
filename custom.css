@@ -378,3 +378,13 @@ a {
 .code {
     color: orange;
 }
+
+.match-info {
+    opacity: 0;
+    position: relative;
+    bottom: 2px; 
+    color: grey;
+    font-family: Menlo, 'Droid Sans Mono', Consolas, monospace; 
+    font-size: 1rem; 
+    font-weight: bold;
+}
