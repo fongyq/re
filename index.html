@@ -302,7 +302,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
 
             var matchStr = ".";
             function markMatch() {
-                editor.doc.getAllMarks().forEach(m => m.clear());
+                clearMark();
                 var cursor = editor.getSearchCursor(
                     new RegExp(matchStr), 
                     CodeMirror.Pos(editor.firstLine(), 0), 
@@ -313,6 +313,9 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                     editor.markText(cursor.from(), cursor.to(), {className: 'match-highlight'});
                 }
                 return cnt;
+            }
+            function clearMark() {
+                editor.doc.getAllMarks().forEach(m => m.clear());
             }
             // cm operation 加速
             function cmMark(target) {
@@ -383,6 +386,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                             filterText(text);
                             filterStr = "";
                         } else {
+                            clearMark();
                             input3.placeholder = "filter";
                             hideFilterInfo();
                         }
