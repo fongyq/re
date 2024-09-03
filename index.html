@@ -226,11 +226,12 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
         </div>
         <div class="input-container">
             <div class="inputer">
-                <input type="text" id="input-key3" onchange="filterLine(this)" placeholder="filter" onfocus="this.placeholder=''" onblur="this.placeholder='filter'">
+                <input type="text" id="input-key3" oninput="filterLine(this)" placeholder="filter" onfocus="this.placeholder=''" onblur="this.placeholder='filter'">
+                <div class="match-info" id="match-cnt"></div>
             </div>
             <div class="inputer">
-                <input type="text" id="input-key1" onchange="toReplace(this)" placeholder="to replace" onfocus="this.placeholder=''" onblur="this.placeholder='to replace'">
-                <input type="text" id="input-key2" onchange="replaceTo(this)" placeholder="replace to" onfocus="this.placeholder=''" onblur="this.placeholder='replace to'">
+                <input type="text" id="input-key1" oninput="toReplace(this)" placeholder="to replace" onfocus="this.placeholder=''" onblur="this.placeholder='to replace'">
+                <input type="text" id="input-key2" oninput="replaceTo(this)" placeholder="replace to" onfocus="this.placeholder=''" onblur="this.placeholder='replace to'">
             </div>
         </div>
         <script>
@@ -239,6 +240,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             const viewer = document.getElementById("view");
             const lnCheck = document.getElementById("check-lineno");
             const lineno = document.getElementById("line-no");
+            const matchInfo = document.getElementById("match-cnt");
             const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
                 lineNumbers: true,
                 lineWrapping: true,
@@ -296,16 +298,27 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 ele.style.width = (ele.value.length + 10) + "ch";
                 replace();
             }
-            function markMatch(target) {
+
+            var matchStr = ".";
+            function markMatch() {
                 editor.doc.getAllMarks().forEach(m => m.clear());
                 var cursor = editor.getSearchCursor(
-                    new RegExp(target), 
+                    new RegExp(matchStr), 
                     CodeMirror.Pos(editor.firstLine(), 0), 
                     {caseFold: true, multiline: true});
+                var cnt = 0;
                 while(cursor.findNext()) {
+                    cnt += 1;
                     editor.markText(cursor.from(), cursor.to(), {className: 'match-highlight'});
                 }
+                return cnt;
             }
+            // cm operation 加速
+            function cmMark(target) {
+                markStr = target;
+                return cm.operation(markMatch);
+            }
+            
             var replaceToStr = "";
             function replaceTo(ele) {
                 replaceToStr = ele.value;
@@ -330,15 +343,28 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             }
 
             function filterText(text) {
-                markMatch(filterStr);
-                if (filterStr.length == 0) return text;
+                var cnt = cmMark(filterStr);
+                if (filterStr.length == 0) {
+                    hideFilterInfo();
+                    return text;
+                }
                 var lines = text.split("\n");
                 var result = [];
                 var re = new RegExp(filterStr);
                 lines.forEach(line => {
                     if (line.match(re)) result.push(line);
                 });
+                showFilterInfo(cnt, result.length);
                 return result.join("\n");
+            }
+
+            function hideFilterInfo() {
+                matchInfo.style.opacity = "0";
+            }
+            function showFilterInfo(matchCnt, lineCnt) {
+                matchInfo.style.opacity = "1";
+                matchInfo.innerText = lineCnt + " Line" + (lineCnt > 1? "s, ": ", ") + 
+                    matchCnt + " Match" + (matchCnt > 1? "es": "");
             }
             
             function formatPre(text) {
@@ -352,7 +378,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 viewer.innerText = formatPre(text);
                 try {
                     if (toReplaceStr.length > 0) {
-                        markMatch(toReplaceStr);
+                        cmMark(toReplaceStr);
                         var re = new RegExp(toReplaceStr, 'gm');
                         text = text.replace(re, replaceToStr);
                         viewer.innerText = formatPre(text);
@@ -467,7 +493,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                     }
                 }
             });
-            window.addEventListener("load", replace());
+            window.addEventListener("load", replace);
             window.addEventListener("load", checkLineNo(lnCheck));
             // 监听 copy 行为，把拷贝文本中的空行删除
             /*
@@ -553,7 +579,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                     return c.toUpperCase()
                 });
                 result = result.replace(/\bi\b/g, "I");
-                result = result.replace(/\B-[a-z]/g, function(c) {
+                result = result.replace(/^- [a-z]/gm, function(c) {
                     return c.toUpperCase()
                 });
                 viewer.innerText = formatPre(result);
