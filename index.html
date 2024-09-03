@@ -322,6 +322,9 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 matchStr = target;
                 return editor.operation(markMatch);
             }
+            function cmClear() {
+                return editor.operation(clearMark);
+            }
             
             var replaceToStr = "";
             function replaceTo(ele) {
@@ -386,7 +389,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                             filterText(text);
                             filterStr = "";
                         } else {
-                            clearMark();
+                            cmClear();
                             input3.placeholder = "filter";
                             hideFilterInfo();
                         }
