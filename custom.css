@@ -58,7 +58,7 @@ body {
     /* margin: 0 1%; */
     height: 100%;
     line-height: 1.67;
-    background-color: #eef4f7;
+    /* background-color: #eef4f7; */
     border-radius: 5px;
     border: 2px solid rgba(39, 64, 101, 0.3);
 }
@@ -83,7 +83,7 @@ body {
     font-size: 18px;
     line-height: 1.33;
     height: 100%;
-    background-color: #eef4f7;
+    background-color: rgb(252, 252, 252);
     border-radius: 5px;
 }
 .d2h-diff-table {
@@ -344,7 +344,7 @@ input[type="text"]:focus {
     text-align: right;
     font-family: Menlo, 'Droid Sans Mono', Consolas, monospace;
     color: rgb(153, 153, 153);
-    border: none;
+    border-right: 1px solid rgba(153, 153, 153, 0.3);
     background-color: rgb(247,247,247);
 }
 
