@@ -343,6 +343,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 if (markId < marks.length) {
                     var pos = marks[markId].find();
                     editor.setSelection(pos.from, pos.to);
+                    editor.scrollIntoView(pos.from, 20);
                 }
             }
             function findNextMatch() {
@@ -351,6 +352,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 if (markId < marks.length) {
                     var pos = marks[markId].find();
                     editor.setSelection(pos.from, pos.to);
+                    editor.scrollIntoView(pos.from, 20);
                 }
             }
             
