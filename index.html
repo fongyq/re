@@ -375,11 +375,15 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             
             function replace() {
                 var text = editor.getDoc().getValue("\n");
-                if (filterStr == "" && toReplaceStr != "") {
-                    filterStr = toReplaceStr;
-                    input3.placeholder = filterStr;
-                    filterText(text);
-                    filterStr = "";
+                if (filterStr == "") {
+                    if (toReplaceStr != "") {
+                        filterStr = toReplaceStr;
+                        input3.placeholder = filterStr;
+                        filterText(text);
+                        filterStr = "";
+                    } else {
+                        input3.placeholder = "filter";
+                    }
                 } else {
                     text = filterText(text);
                 }
