@@ -437,6 +437,12 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                         text = text.replace(re, "<span class='replacement'>" + replaceToStr + "</span>");
                         viewer.innerHTML = formatPre(text);
                         placeholderRecover();
+                    } else {
+                        if (filterStr != "") {
+                            var re = new RegExp(filterStr, "gm");
+                            text = text.replace(re, "<span class='replacement'>" + filterStr + "</span>");
+                            viewer.innerHTML = formatPre(text);
+                        }
                     }
                     if (showLineNo) {
                         addLineNo();
