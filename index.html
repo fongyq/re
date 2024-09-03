@@ -226,12 +226,12 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
         </div>
         <div class="input-container">
             <div class="inputer">
-                <input type="text" id="input-key3" oninput="filterLine(this)" placeholder="filter" onfocus="this.placeholder=''" onblur="this.placeholder='filter'">
+                <input type="text" id="input3" oninput="filterLine(this)" placeholder="filter" onfocus="this.placeholder=''" onblur="this.placeholder='filter'">
                 <div class="match-info" id="match-cnt"></div>
             </div>
             <div class="inputer">
-                <input type="text" id="input-key1" oninput="toReplace(this)" placeholder="to replace" onfocus="this.placeholder=''" onblur="this.placeholder='to replace'">
-                <input type="text" id="input-key2" oninput="replaceTo(this)" placeholder="replace to" onfocus="this.placeholder=''" onblur="this.placeholder='replace to'">
+                <input type="text" id="input1" oninput="toReplace(this)" placeholder="to replace" onfocus="this.placeholder=''" onblur="this.placeholder='to replace'">
+                <input type="text" id="input2" oninput="replaceTo(this)" placeholder="replace to" onfocus="this.placeholder=''" onblur="this.placeholder='replace to'">
             </div>
         </div>
         <script>
@@ -241,6 +241,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             const lnCheck = document.getElementById("check-lineno");
             const lineno = document.getElementById("line-no");
             const matchInfo = document.getElementById("match-cnt");
+            const input3 = document.getElementById("input3");
             const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
                 lineNumbers: true,
                 lineWrapping: true,
@@ -374,7 +375,14 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             
             function replace() {
                 var text = editor.getDoc().getValue("\n");
-                text = filterText(text);
+                if (filterStr == "") {
+                    filterStr = toReplaceStr;
+                    input3.placeholder = filterStr;
+                    filterText(text);
+                    filterStr = "";
+                } else {
+                    text = filterText(text);
+                }
                 viewer.innerText = formatPre(text);
                 try {
                     if (toReplaceStr.length > 0) {
