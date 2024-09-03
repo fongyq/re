@@ -375,7 +375,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             
             function replace() {
                 var text = editor.getDoc().getValue("\n");
-                if (filterStr == "") {
+                if (filterStr == "" && toReplaceStr != "") {
                     filterStr = toReplaceStr;
                     input3.placeholder = filterStr;
                     filterText(text);
