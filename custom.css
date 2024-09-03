@@ -372,6 +372,7 @@ input[type="text"]:focus {
 }
 
 .match-highlight {
+    border-radius: 2px;
     background-color: rgba(31, 110, 129, 0.5);
 }
 
