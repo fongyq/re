@@ -374,21 +374,22 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             }
             
             function replace() {
-                var text = editor.getDoc().getValue("\n");
-                if (filterStr == "") {
-                    if (toReplaceStr != "") {
-                        filterStr = toReplaceStr;
-                        input3.placeholder = filterStr;
-                        filterText(text);
-                        filterStr = "";
-                    } else {
-                        input3.placeholder = "filter";
-                    }
-                } else {
-                    text = filterText(text);
-                }
-                viewer.innerText = formatPre(text);
                 try {
+                    var text = editor.getDoc().getValue("\n");
+                    if (filterStr == "") {
+                        if (toReplaceStr != "") {
+                            filterStr = toReplaceStr;
+                            input3.placeholder = filterStr;
+                            filterText(text);
+                            filterStr = "";
+                        } else {
+                            input3.placeholder = "filter";
+                            hideFilterInfo();
+                        }
+                    } else {
+                        text = filterText(text);
+                    }
+                    viewer.innerText = formatPre(text);
                     if (toReplaceStr.length > 0) {
                         cmMark(toReplaceStr);
                         var re = new RegExp(toReplaceStr, 'gm');
@@ -400,6 +401,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                         addLineNo();
                     }
                 } catch (e) {
+                    filterStr = input3.value;
                     reportError(e);
                 }
             }
