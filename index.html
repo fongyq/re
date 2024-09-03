@@ -312,7 +312,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             function markMatch() {
                 clearMark();
                 var cursor = editor.getSearchCursor(
-                    new RegExp(matchStr, 'gm'), 
+                    new RegExp(matchStr, "gm"), 
                     CodeMirror.Pos(editor.firstLine(), 0), 
                     {caseFold: true, multiline: true});
                 var cnt = 0;
@@ -325,9 +325,6 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             function clearMark() {
                 editor.doc.getAllMarks().forEach(m => m.clear());
                 markId = -1;
-            }
-            function clearEditorSelection() {
-                editor.setSelection(CodeMirror.Pos(editor.firstLine(), 0));
             }
             // cm operation 加速
             function cmMark(target) {
@@ -388,7 +385,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 }
                 var lines = text.split("\n");
                 var result = [];
-                var re = new RegExp(filterStr, 'gm');
+                var re = new RegExp(filterStr, "gm");
                 lines.forEach(line => {
                     if (line.match(re)) result.push(line);
                 });
@@ -416,7 +413,6 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             
             function replace() {
                 try {
-                    clearEditorSelection();
                     var text = editor.getDoc().getValue("\n");
                     if (filterStr == "") {
                         if (toReplaceStr != "") {
@@ -435,9 +431,9 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                     viewer.innerText = formatPre(text);
                     if (toReplaceStr.length > 0) {
                         cmMark(toReplaceStr);
-                        var re = new RegExp(toReplaceStr, 'gm');
-                        text = text.replace(re, replaceToStr);
-                        viewer.innerText = formatPre(text);
+                        var re = new RegExp(toReplaceStr, "gm");
+                        text = text.replace(re, "<span class='replacement'>" + replaceToStr + "</span>");
+                        viewer.innerHTML = formatPre(text);
                         placeholderRecover();
                     }
                     if (showLineNo) {

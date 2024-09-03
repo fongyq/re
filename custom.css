@@ -392,3 +392,7 @@ a {
     font-size: 1rem; 
     font-weight: bold;
 }
+
+.replacement {
+    color: rgb(214, 126, 19);
+}
