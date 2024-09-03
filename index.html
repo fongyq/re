@@ -230,7 +230,11 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
         <div class="input-container">
             <div class="inputer">
                 <input type="text" id="input3" oninput="filterLine(this)" placeholder="filter" onfocus="this.placeholder=''" onblur="this.placeholder='filter'">
-                <div class="match-info" id="match-cnt"></div>
+                <div class="match-info" id="match">
+                    <i class="button fa-solid fa-caret-up fa-lg" onclick="findPreviousMatch()"></i>
+                    <span id="match-cnt"></span>
+                    <i class="button fa-solid fa-caret-down fa-lg" onclick="findNextMatch()"></i>
+                </div>
             </div>
             <div class="inputer">
                 <input type="text" id="input1" oninput="toReplace(this)" placeholder="to replace" onfocus="this.placeholder=''" onblur="this.placeholder='to replace'">
@@ -243,7 +247,8 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             const viewer = document.getElementById("view");
             const lnCheck = document.getElementById("check-lineno");
             const lineno = document.getElementById("line-no");
-            const matchInfo = document.getElementById("match-cnt");
+            const matchInfo = document.getElementById("match");
+            const matchCntInfo = document.getElementById("match-cnt");
             const input3 = document.getElementById("input3");
             const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
                 lineNumbers: true,
@@ -319,6 +324,10 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             }
             function clearMark() {
                 editor.doc.getAllMarks().forEach(m => m.clear());
+                markId = -1;
+            }
+            function clearEditorSelection() {
+                editor.setSelection(CodeMirror.Pos(editor.firstLine(), 0));
             }
             // cm operation 加速
             function cmMark(target) {
@@ -326,7 +335,26 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 return editor.operation(markMatch);
             }
             function cmClear() {
-                return editor.operation(clearMark);
+                editor.operation(clearMark);
+            }
+
+            var markId = -1;
+            function findPreviousMatch() {
+                var marks = editor.doc.getAllMarks();
+                if (markId < 0) markId = 0;
+                markId = (markId - 1 + marks.length) % marks.length;
+                if (markId < marks.length) {
+                    var pos = marks[markId].find();
+                    editor.setSelection(pos.from, pos.to);
+                }
+            }
+            function findNextMatch() {
+                var marks = editor.doc.getAllMarks();
+                markId = (markId + 1) % marks.length;
+                if (markId < marks.length) {
+                    var pos = marks[markId].find();
+                    editor.setSelection(pos.from, pos.to);
+                }
             }
             
             var replaceToStr = "";
@@ -353,7 +381,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             }
 
             function filterText(text) {
-                var cnt = cmMark(filterStr);
+                var matchCnt = cmMark(filterStr);
                 if (filterStr.length == 0) {
                     hideFilterInfo();
                     return text;
@@ -364,7 +392,11 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 lines.forEach(line => {
                     if (line.match(re)) result.push(line);
                 });
-                showFilterInfo(cnt, result.length);
+                var lineCnt = result.length;
+                if (filterStr == "\\n") {
+                    lineCnt = lines.length - 1;
+                }
+                showFilterInfo(matchCnt, lineCnt);
                 return result.join("\n");
             }
 
@@ -373,7 +405,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             }
             function showFilterInfo(matchCnt, lineCnt) {
                 matchInfo.style.opacity = "1";
-                matchInfo.innerText = lineCnt + " Line" + (lineCnt > 1? "s, ": ", ") + 
+                matchCntInfo.innerText = lineCnt + " Line" + (lineCnt > 1? "s, ": ", ") + 
                     matchCnt + " Match" + (matchCnt > 1? "es": "");
             }
             
@@ -384,6 +416,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             
             function replace() {
                 try {
+                    clearEditorSelection();
                     var text = editor.getDoc().getValue("\n");
                     if (filterStr == "") {
                         if (toReplaceStr != "") {
