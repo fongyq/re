@@ -245,6 +245,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             const area1 = document.getElementById("text1");
             const area2 = document.getElementById("text2");
             const viewer = document.getElementById("view");
+            const wrapper = document.getElementById("check-wrap");
             const lnCheck = document.getElementById("check-lineno");
             const lineno = document.getElementById("line-no");
             const matchInfo = document.getElementById("match");
@@ -444,9 +445,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                             viewer.innerHTML = formatPre(text);
                         }
                     }
-                    if (showLineNo) {
-                        addLineNo();
-                    }
+                    addLineNo();
                 } catch (e) {
                     filterStr = input3.value;
                     reportError(e);
@@ -470,17 +469,18 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             
             function checkWrap(obj) {
                 if (obj.checked) {
-                    area2.style.display = "block";
+                    // area2.style.display = "block";
                     viewer.classList.remove("text-nowrap");
                     viewer.classList.add("text-wrap");
                     editor.setOption("lineWrapping", true);
-                    lnCheck.checked = false;
-                    checkLineNo(lnCheck);
+                    // lnCheck.checked = false;
+                    // checkLineNo(lnCheck);
                 } else {
                     viewer.classList.remove("text-wrap");
                     viewer.classList.add("text-nowrap");
                     editor.setOption("lineWrapping", false);
                 }
+                addLineNo();
             }
             function forceWrap() {
                 viewer.classList.remove("text-nowrap");
@@ -490,9 +490,8 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             var showLineNo = true;
             function checkLineNo(obj) {
                 if (obj.checked) {
-                    var wrapper = document.getElementById("check-wrap");
-                    wrapper.checked = false;
-                    checkWrap(wrapper);
+                    // wrapper.checked = false;
+                    // checkWrap(wrapper);
                     showLineNo = true;
                     area2.style.display = "flex";
                 } else {
@@ -500,18 +499,26 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                     showLineNo = false;
                     area2.style.display = "block";
                 }
-                replace();
+                addLineNo();
             }
             function addLineNo() {
+                if (!showLineNo) return;
+                
                 const n = viewer.innerText.split("\n").length;
-                var h = "";
-                for (var i = 1; i <= n; ++i) {
-                    h += i + "<br/>";
-                }
-                lineno.innerHTML = h;
                 lineno.style.width = n.toString().length * 13 + "px";
                 lineno.style.height = viewer.scrollHeight + "px";
                 lineno.style.display = "block";
+                
+                var h = "";
+                if (wrapper.checked) {
+                    var lineNumbers = calcLines();
+                    h = lineNumbers.join("<br>") + "<br>";
+                } else {
+                    for (var i = 1; i <= n; ++i) {
+                        h += i + "<br>";
+                    }
+                }
+                lineno.innerHTML = h;
             }
 
             var isBoldFont = true;
@@ -554,8 +561,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                     }
                 }
             });
-            window.addEventListener("load", replace);
-            window.addEventListener("load", checkLineNo(lnCheck));
+            
             // 监听 copy 行为，把拷贝文本中的空行删除
             /*
             document.addEventListener('copy', (event) => {
@@ -622,6 +628,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 const newWidth2 = startWidth2 - delta;
                 text1.style.width = newWidth1 + 'px';
                 text2.style.width = newWidth2 + 'px';
+                addLine();
             }
             function stopResize() {
                 document.documentElement.removeEventListener('mousemove', resize, false); 
@@ -669,6 +676,55 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 }
                 viewer.innerText = formatPre(result);
             }
+
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            const viewStyles = window.getComputedStyle(viewer);
+            const font = `${viewStyles.fontSize} ${viewStyles.fontFamily}`;
+            context.font = font;
+            function calcStringLines(sentence, width) {
+                if (!width) return 0;
+                const words = sentence.split('');
+                let lineCount = 0;
+                let currentLine = '';
+                for (let i = 0; i < words.length; i++) {
+                    const wordWidth = context.measureText(words[i]).width;
+                    const lineWidth = context.measureText(currentLine).width;
+                    if (lineWidth + wordWidth > width) {
+                        lineCount++;
+                        currentLine = words[i];
+                    } else {
+                        currentLine += words[i];
+                    }
+                 }
+                 // if (currentLine.trim() !== '') lineCount++;
+                 lineCount++;
+                 return lineCount;
+             }
+            
+    function calcLines() {
+      const lines = viewer.innerText.split('\n');
+      const textareaContentWidth = $("#view").width();
+      const numLines = lines.map(
+          lineString => calcStringLines(lineString, textareaContentWidth));
+      let lineNumbers = [];
+      let i = 1;
+      while (numLines.length > 0) {
+        const numLinesOfSentence = numLines.shift();
+        lineNumbers.push(i);
+        if (numLinesOfSentence > 1) {
+          Array(numLinesOfSentence - 1)
+            .fill('')
+            .forEach((_) => lineNumbers.push(''));
+        }
+        i++;
+      }
+      return lineNumbers;
+    }
+
+            window.addEventListener("load", forceWrap);
+            window.addEventListener("load", checkLineNo(lnCheck));
+            window.addEventListener("load", replace);
         </script>
         <style id="tab-style">
             .cm-tab{opacity: 0;}
