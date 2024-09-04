@@ -380,7 +380,7 @@ input::placeholder {
 }
 
 .match-highlight {
-    border-radius: 2px;
+    border-radius: 3px;
     background-color: rgba(31, 110, 129, 0.5);
 }
 
