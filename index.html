@@ -702,25 +702,25 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                  return lineCount;
              }
             
-    function calcLines() {
-      const lines = viewer.innerText.split('\n');
-      const textareaContentWidth = $("#view").width();
-      const numLines = lines.map(
-          lineString => calcStringLines(lineString, textareaContentWidth));
-      let lineNumbers = [];
-      let i = 1;
-      while (numLines.length > 0) {
-        const numLinesOfSentence = numLines.shift();
-        lineNumbers.push(i);
-        if (numLinesOfSentence > 1) {
-          Array(numLinesOfSentence - 1)
-            .fill('')
-            .forEach((_) => lineNumbers.push(''));
-        }
-        i++;
-      }
-      return lineNumbers;
-    }
+             function calcLines() {
+                 const lines = viewer.innerText.split('\n');
+                 const textareaContentWidth = $("#view").width();
+                 const numLines = lines.map(
+                    lineString => calcStringLines(lineString, textareaContentWidth));
+                 let lineNumbers = [];
+                 let i = 1;
+                 while (numLines.length > 0) {
+                     const numLinesOfSentence = numLines.shift();
+                     lineNumbers.push(i);
+                     if (numLinesOfSentence > 1) { 
+                         Array(numLinesOfSentence - 1)
+                           .fill('')
+                           .forEach((_) => lineNumbers.push(''));
+                     }
+                     i++;
+                   }
+                   return lineNumbers;
+            }
 
             window.addEventListener("load", forceWrap);
             window.addEventListener("load", checkLineNo(lnCheck));
