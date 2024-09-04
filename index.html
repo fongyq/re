@@ -82,7 +82,7 @@
                     <li>光标位于左侧输入框内，Ctrl-F / Cmd-F 搜索，Ctrl-G / Cmd-G 查找下一个，Shift-Ctrl-G / Shift-Cmd-G 查找上一个，Shift-Ctrl-F / Cmd-Option-F 替换，Alt-G 跳到指定行。</li>
                     <li>正则表达式设置为 Global 和 Multiline 模式。</li>
                     <li> <span class="code">.*</span> 会匹配空字符串，因此对于非空行会有 2 个匹配。可以使用 <span class="code">.+</span> 匹配非空字符串。</li>
-                    <li> <span class="code">^$</span> 匹配空行（不含换行符）。</li>
+                    <li> <span class="code">^$</span> 匹配空行（不含换行符）；<span class="code">$&</span> 表示匹配到的字符串。</li>
                     <li>参考：
                         <a href="https://regex101.com" target="_blank">https://regex101.com</a>，
                         <a href="https://www.fangyq.cn/docs/regularExpression/01_character.html" target="_blank">https://www.fangyq.cn/docs/regularExpression</a>。
@@ -237,8 +237,8 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 </div>
             </div>
             <div class="inputer">
-                <input type="text" id="input1" oninput="toReplace(this)" placeholder="to replace" onfocus="this.placeholder=''" onblur="this.placeholder='to replace'">
-                <input type="text" id="input2" oninput="replaceTo(this)" placeholder="replace to" onfocus="this.placeholder=''" onblur="this.placeholder='replace to'">
+                <input type="text" id="input1" oninput="toReplace(this)" placeholder="find" onfocus="this.placeholder=''" onblur="this.placeholder='find'">
+                <input type="text" id="input2" oninput="replaceTo(this)" placeholder="replace" onfocus="this.placeholder=''" onblur="this.placeholder='replace'">
             </div>
         </div>
         <script>
@@ -441,7 +441,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                     } else {
                         if (filterStr != "") {
                             var re = new RegExp(filterStr, "gm");
-                            text = text.replace(re, "<span class='replacement'>" + filterStr + "</span>");
+                            text = text.replace(re, "<span class='replacement'>$&</span>");
                             viewer.innerHTML = formatPre(text);
                         }
                     }
