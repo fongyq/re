@@ -361,9 +361,13 @@ input[type="text"]:focus {
 }
 
 .text-wrap {
-    white-space: pre-wrap; 
-    word-wrap: break-word; 
-    overflow-wrap: break-word;
+    /* white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word; */
+    white-space: break-spaces;
+    word-break: break-all;
+    line-break: anywhere;
+    overflow-wrap: anywhere;
 }
 .text-nowrap {
     white-space: pre; 
