@@ -85,6 +85,7 @@
                     <li>在长行换行的情况下，生成行号可能会比较慢，可以关闭换行模式或者关闭行号。换行情况下，编辑器内使用光标选择文本有时会有点 bug。</li>
                     <li> <span class="code">.*</span> 会匹配空字符串，因此对于非空行会有 2 个匹配。可以使用 <span class="code">.+</span> 匹配非空字符串。</li>
                     <li> <span class="code">^$</span> 匹配空行（不含换行符）；<span class="code">$&</span> 表示匹配到的字符串。</li>
+                    <li>匹配中文：<span class="code">[\u4e00-\u9fa5]</span>；匹配双字节字符（包括中文）：<span class="code">[^\x00-\xff]</span>。</li>
                     <li>参考：
                         <a href="https://regex101.com" target="_blank">https://regex101.com</a>，
                         <a href="https://www.fangyq.cn/docs/regularExpression/01_character.html" target="_blank">https://www.fangyq.cn/docs/regularExpression</a>。
