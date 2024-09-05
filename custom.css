@@ -24,6 +24,7 @@ body {
     position: relative;
     text-align: center;
     padding: 10px 0 16px;
+    user-select: none;
 }
 
 .editor-container {
@@ -401,6 +402,7 @@ a {
     font-family: Menlo, 'Droid Sans Mono', Consolas, monospace; 
     font-size: 1rem; 
     font-weight: bold;
+    user-select: none;
 }
 
 .replacement {
