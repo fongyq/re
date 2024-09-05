@@ -253,7 +253,7 @@ label:hover {
     border: none; 
 }
 
-.input-container 
+.input-container {
     display: flex; 
     width: 54%;
     margin: 10px auto; 
