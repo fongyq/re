@@ -552,9 +552,11 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             document.addEventListener("mouseup", function(){
                 const s = window.getSelection().toString();
                 const len = s.length;
+                const ln = s.split("\n").length;
                 if (len > 0) {
                     selectInfo.style.display = "block";
-                    selectInfo.innerText = len + " Char" + (len > 1? "s": "") + " Selected";
+                    selectInfo.innerText = len + " Char" + (len > 1? "s": "") + ", " +
+                        ln + " Line" + (ln > 1? "s": "");
                 } else {
                     selectInfo.style.display = "none";
                 }
