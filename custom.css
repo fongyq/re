@@ -201,7 +201,7 @@ label:hover {
     border-radius: 5px;
     padding: 0.3rem 0.4rem;
 }
-#check-str2json, #check-sortkey, #check-showidx, #check-lineno, #check-tab, #check-wrap, #check-simple-array-wrap {
+#check-case, #check-lineno, #check-tab, #check-wrap {
     vertical-align: middle;
     accent-color: rgba(21, 54, 86, 0.2);
 }
