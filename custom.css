@@ -65,7 +65,7 @@ body {
 }
 
 .view-text {
-    padding: 1em 1em;
+    padding: 5px 6px;
     color: rgb(100, 100, 100);
     font-weight: bold;
     font-size: 18px;
@@ -347,7 +347,7 @@ input::placeholder {
     user-select: none;
     cursor: default;
     margin: 0;
-    padding: 1em 6px 0 3px;
+    padding: 5px 6px 0 3px;
     font-size: 18px;
     line-height: 1.67;
     text-align: right;
