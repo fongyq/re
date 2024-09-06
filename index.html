@@ -654,6 +654,8 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 text1.style.width = newWidth1 + 'px';
                 text2.style.width = newWidth2 + 'px';
                 addLineNo();
+                // 触发 scrollbar
+                editor.refresh();
             }
             function stopResize() {
                 document.documentElement.removeEventListener('mousemove', resize, false); 
