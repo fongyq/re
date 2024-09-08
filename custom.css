@@ -420,3 +420,9 @@ a {
     font-weight: bold;
     color: #fe8406;
 }
+
+
+pre.CodeMirror-line.newline::after {
+    content: "↵";
+    color: #6495ED;
+  }

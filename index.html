@@ -127,7 +127,7 @@
             </select>
             <label title="显示行号" class="check-box">
                 <input type="checkbox" id="check-lineno" onclick="checkLineNo(this)" checked>LineNo</label>
-            <label title="显示 tab" class="check-box">
+            <label title="显示 tab 和换行符" class="check-box">
                 <input type="checkbox" id="check-tab" onclick="checkTabShow(this)">ShowTab</label>
             <label title="长行自动换行" class="check-box">
                 <input type="checkbox" id="check-wrap" onclick="checkWrap(this)" checked>WrapOverflow</label>
@@ -251,6 +251,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             const area2 = document.getElementById("text2");
             const viewer = document.getElementById("view");
             const selectInfo = document.getElementById("select-cnt");
+            const tabCheck = document.getElementById("check-tab");
             const wrapper = document.getElementById("check-wrap");
             const lnCheck = document.getElementById("check-lineno");
             const lineno = document.getElementById("line-no");
@@ -284,6 +285,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 }
             });
             editor.on('change', () => {
+                checkTabShow(tabCheck);
                 replace();
             });
             editor.on('focus', () => {
@@ -291,6 +293,9 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             });
             editor.on('blur', () => {
                 area1.style.border = "2px solid rgba(39, 64, 101, 0.3)";
+            });
+            editor.on('scroll', () => {
+                checkTabShow(tabCheck);
             });
             function setLangMode(event) {
                 var mode = event.target.value;
@@ -401,9 +406,12 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 var lineCnt = result.length;
                 if (filterStr == "\\n") {
                     lineCnt = lines.length - 1;
+                    result = text;
+                } else {
+                    result = result.join("\n");
                 }
                 showFilterInfo(matchCnt, lineCnt);
-                return result.join("\n");
+                return result;
             }
 
             function hideFilterInfo() {
@@ -467,9 +475,11 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 if (obj.checked) {
                     editor.setOption("indentWithTabs", true);
                     $("#tab-style").html(".cm-tab{opacity: 0.5}");
+                    $("pre.CodeMirror-line").addClass("newline");
                 } else {
                     editor.setOption("indentWithTabs", false);
                     $("#tab-style").html(".cm-tab{opacity: 0}");
+                    $("pre.CodeMirror-line").removeClass("newline");
                 }
             }
             
