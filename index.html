@@ -127,7 +127,7 @@
             </select>
             <label title="显示行号" class="check-box">
                 <input type="checkbox" id="check-lineno" onclick="checkLineNo(this)" checked>LineNo</label>
-            <label title="显示 tab 和换行符" class="check-box">
+            <label title="显示 tab 和结尾符" class="check-box">
                 <input type="checkbox" id="check-tab" onclick="checkTabShow(this)">ShowTab</label>
             <label title="长行自动换行" class="check-box">
                 <input type="checkbox" id="check-wrap" onclick="checkWrap(this)" checked>WrapOverflow</label>
@@ -285,7 +285,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 }
             });
             editor.on('change', () => {
-                checkTabShow(tabCheck);
+                showNewLine();
                 replace();
             });
             editor.on('focus', () => {
@@ -295,7 +295,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 area1.style.border = "2px solid rgba(39, 64, 101, 0.3)";
             });
             editor.on('scroll', () => {
-                checkTabShow(tabCheck);
+                showNewLine();
             });
             function setLangMode(event) {
                 var mode = event.target.value;
@@ -471,16 +471,22 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 viewer.innerHTML += "<pre class='error'>" + "Line: " + lineno + ", Column: " + colno + "</pre>";
             };
 
+            var needShowN = false;
             function checkTabShow(obj) {
                 if (obj.checked) {
                     editor.setOption("indentWithTabs", true);
                     $("#tab-style").html(".cm-tab{opacity: 0.5}");
-                    $("pre.CodeMirror-line").addClass("newline");
+                    needShowN = true;
                 } else {
                     editor.setOption("indentWithTabs", false);
                     $("#tab-style").html(".cm-tab{opacity: 0}");
-                    $("pre.CodeMirror-line").removeClass("newline");
+                    needShowN = false;
                 }
+                showNewLine();
+            }
+            function showNewLine() {
+                if (needShowN) $("pre.CodeMirror-line").addClass("newline");
+                else $("pre.CodeMirror-line").removeClass("newline");
             }
             
             function checkWrap(obj) {
