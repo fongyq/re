@@ -218,6 +218,10 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                         <div class="icon-name">Bold</div>
                     </li>
                     <li>
+                        <button class="button fa-solid fa-crosshairs fa-2x" onclick="pickMatch()" title="筛选出匹配的字符"></button>
+                        <div class="icon-name">Pick</div>
+                    </li>
+                    <li>
                         <button class="button fa-solid fa-paste fa-2x" id="paste" title="粘贴剪切板的文本到输入框"></button>
                         <div class="icon-name">Paste</div>
                     </li>
@@ -426,6 +430,18 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 const replaceCnt = ((text || "").match(re) || []).length;
                 matchCntInfo.innerText = matchCntInfo.innerText + 
                     ", " + replaceCnt + "/" + total + " Replaced";
+            }
+
+            function pickMatch() {
+                const h = viewer.innerHTML;
+                const lines = h.split("\n");
+                var targets = [];
+                for (var i in lines) {
+                    var m = lines[i].match(/<span class="replacement">[^<]+<\/span>/g);
+                    if (m) targets.push(m.join("&#09;")); // 行内用 \t 分割
+                }
+                viewer.innerHTML = targets.join("<br>");
+                addLineNo();
             }
             
             function formatPre(text) {
