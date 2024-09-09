@@ -425,4 +425,4 @@ a {
 pre.CodeMirror-line.newline::after {
     content: "↵";
     color: #6495ED;
-  }
+}
