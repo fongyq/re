@@ -420,7 +420,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             function showFilterInfo(matchCnt, lineCnt) {
                 matchInfo.style.opacity = "1";
                 matchCntInfo.innerText = lineCnt + " Line" + (lineCnt > 1? "s, ": ", ") + 
-                    matchCnt + " Hit" + (matchCnt > 1? "es": "");
+                    matchCnt + " Hit" + (matchCnt > 1? "s": "");
             }
             function showReplaceInfo(re, text, total) {
                 const replaceCnt = ((text || "").match(re) || []).length;
