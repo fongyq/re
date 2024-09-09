@@ -420,7 +420,12 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             function showFilterInfo(matchCnt, lineCnt) {
                 matchInfo.style.opacity = "1";
                 matchCntInfo.innerText = lineCnt + " Line" + (lineCnt > 1? "s, ": ", ") + 
-                    matchCnt + " Match" + (matchCnt > 1? "es": "");
+                    matchCnt + " Hit" + (matchCnt > 1? "es": "");
+            }
+            function showReplaceInfo(re, text, total) {
+                const replaceCnt = ((text || "").match(re) || []).length;
+                matchCntInfo.innerText = matchCntInfo.innerText + 
+                    ", " + replaceCnt + "/" + total + " Replaced";
             }
             
             function formatPre(text) {
@@ -447,8 +452,9 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                     }
                     viewer.innerText = formatPre(text);
                     if (toReplaceStr.length > 0) {
-                        cmMark(toReplaceStr);
+                        const total = cmMark(toReplaceStr);
                         var re = new RegExp(toReplaceStr, "gm" + matchCase);
+                        showReplaceInfo(re, text, total);
                         text = text.replace(re, "<span class='replacement'>" + replaceToStr + "</span>");
                         viewer.innerHTML = formatPre(text);
                         placeholderRecover();
