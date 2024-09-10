@@ -726,7 +726,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 text = text.replace(/([a-zA-Z][_'\-a-zA-Z0-9]*)/g, function(word) {
                     return "<span class='replacement'>" + word.charAt(0).toUpperCase() + "</span>" + word.slice(1);
                 });
-                viewer.innerHTML = result;
+                viewer.innerHTML = text;
             }
             function convertInverseCase() {
                 var origin_txt = editor.getValue();
