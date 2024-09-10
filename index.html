@@ -716,7 +716,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                     return "<span class='replacement'>" + c.toUpperCase() + "</span>"
                 });
                 result = result.replace(/\bi\b/g, "I");
-                result = result.replace(/^- [a-z]/gm, (...args) {
+                result = result.replace(/^- [a-z]/gm, (...args) => {
                     return "- <span class='replacement'>" + args[1].toUpperCase() + "</span>"
                 });
                 viewer.innerHTML = result;
