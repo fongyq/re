@@ -712,21 +712,21 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 viewer.innerText = formatPre(editor.getValue().toLowerCase());
             }
             function convertSentenceCase() {
-                var result = editor.getValue().toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, function(c) {
-                    return c.toUpperCase()
+                var result = editor.getValue().toLowerCase().replace(/(^\s*\w|(?<=\w\.|!|\?)\s*\w)/g, function(c) {
+                    return "<span class='replacement'>" + c.toUpperCase() + "</span>"
                 });
                 result = result.replace(/\bi\b/g, "I");
-                result = result.replace(/^- [a-z]/gm, function(c) {
-                    return c.toUpperCase()
+                result = result.replace(/^- [a-z]/gm, (...args) {
+                    return "- <span class='replacement'>" + args[1].toUpperCase() + "</span>"
                 });
-                viewer.innerText = formatPre(result);
+                viewer.innerHTML = result;
             }
             function convertTitleCase() {
                 var text = editor.getValue().toLowerCase();
                 text = text.replace(/([a-zA-Z][_'\-a-zA-Z0-9]*)/g, function(word) {
-                    return word.charAt(0).toUpperCase() + word.slice(1);
+                    return "<span class='replacement'>" + word.charAt(0).toUpperCase() + "</span>" + word.slice(1);
                 });
-                viewer.innerText = formatPre(text);
+                viewer.innerHTML = result;
             }
             function convertInverseCase() {
                 var origin_txt = editor.getValue();
