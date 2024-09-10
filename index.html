@@ -218,7 +218,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                         <div class="icon-name">Bold</div>
                     </li>
                     <li>
-                        <button class="button fa-solid fa-crosshairs fa-2x" onclick="pickMatch()" title="筛选出匹配的字符"></button>
+                        <button class="button fa-solid fa-crosshairs fa-2x" onclick="pickMatch()" title="仅保留匹配的字符"></button>
                         <div class="icon-name">Pick</div>
                     </li>
                     <li>
@@ -433,15 +433,16 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             }
 
             function pickMatch() {
-                const h = viewer.innerHTML;
-                const lines = h.split("\n");
+                const lines = viewer.innerHTML.split("\n");
                 var targets = [];
                 for (var i in lines) {
                     var m = lines[i].match(/<span class="replacement">[^<]+<\/span>/g);
-                    if (m) targets.push(m.join("&#09;")); // 行内用 \t 分割
-                    else targets.push("");
+                    if (m) targets.push(m.join("\t")); // 行内用 \t 分割
+                    else targets.push("\t");
                 }
-                viewer.innerHTML = targets.join("<br>");
+                viewer.innerHTML = targets.join("\n");
+                wrapper.checked = false;
+                checkWrap(wrapper);
                 addLineNo();
             }
             
