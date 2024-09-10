@@ -262,6 +262,10 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             const matchInfo = document.getElementById("match");
             const matchCntInfo = document.getElementById("match-cnt");
             const input3 = document.getElementById("input3");
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            const viewStyles = window.getComputedStyle(viewer);
+
             const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
                 lineNumbers: true,
                 lineWrapping: true,
@@ -315,6 +319,8 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 lineno.style.fontSize = fs + "px";
                 editor.getWrapperElement().style["font-size"] = fs + "px";
                 editor.refresh();
+                context.font = `${viewStyles.fontSize} ${viewStyles.fontFamily}`;
+                addLineNo();
             }
 
             var toReplaceStr = "";
@@ -490,11 +496,6 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 }
             }
             
-            window.onerror = function(message, source, lineno, colno, error) {
-                viewer.innerHTML = "<pre class='error'>" + error + "</pre>";
-                viewer.innerHTML += "<pre class='error'>" + "Line: " + lineno + ", Column: " + colno + "</pre>";
-            };
-
             var needShowN = false;
             function checkTabShow(obj) {
                 if (obj.checked) {
@@ -750,11 +751,6 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 viewer.innerText = formatPre(result);
             }
 
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            const viewStyles = window.getComputedStyle(viewer);
-            const font = `${viewStyles.fontSize} ${viewStyles.fontFamily}`;
-            context.font = font;
             function calcStringLines(sentence, width) {
                 if (!width) return 0;
                 const words = sentence.split('');
@@ -795,9 +791,19 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 return lineNumbers;
             }
 
-            window.addEventListener("load", forceWrap);
-            window.addEventListener("load", checkLineNo(lnCheck));
-            window.addEventListener("load", replace);
+            window.onerror = function(message, source, lineno, colno, error) {
+                viewer.innerHTML = "<pre class='error'>" + error + "</pre>";
+                viewer.innerHTML += "<pre class='error'>" + "Line: " + lineno + ", Column: " + colno + "</pre>";
+            };
+
+            function init() {
+                context.font = `${viewStyles.fontSize} ${viewStyles.fontFamily}`;
+                forceWrap();
+                checkLineNo(lnCheck);
+                replace();
+            }
+
+            window.addEventListener("load", init);
         </script>
         <style id="tab-style">
             .cm-tab{opacity: 0;}
