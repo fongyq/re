@@ -437,7 +437,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 var targets = [];
                 for (var i in lines) {
                     var m = lines[i].match(/<span class="replacement">[^<]+<\/span>/g);
-                    if (m) targets.push(m.join("\t")); // 行内用 \t 分割
+                    if (m) targets.push(m.join("\t") + "\t"); // 行内用 \t 分割
                     else targets.push("\t");
                 }
                 viewer.innerHTML = targets.join("\n");
@@ -712,7 +712,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 viewer.innerText = formatPre(editor.getValue().toLowerCase());
             }
             function convertSentenceCase() {
-                var result = editor.getValue().toLowerCase().replace(/^(\s*)(\w)/, (...args) => {
+                var result = editor.getValue().toLowerCase().replace(/^(\s*)(\w)/gm, (...args) => {
                     return args[1] + "<span class='replacement'>" + args[2].toUpperCase() + "</span>"
                 });
                 result = result.replace(/(?<=\w\.|!|\?)(\s*)(\w)/g, (...args) => {
