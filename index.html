@@ -439,6 +439,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 for (var i in lines) {
                     var m = lines[i].match(/<span class="replacement">[^<]+<\/span>/g);
                     if (m) targets.push(m.join("&#09;")); // 行内用 \t 分割
+                    else targets.push("");
                 }
                 viewer.innerHTML = targets.join("<br>");
                 addLineNo();
