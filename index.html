@@ -139,27 +139,27 @@
             <div id="button-list-left">
                 <ul>
                     <li>
-                        <button class="button" onclick="convert_upper_case()" title="全大写">
+                        <button class="button" onclick="convertUpperCase()" title="全大写">
                             <i class="fa-sharp fa-solid fa-u fa-2x"></i>
                         </button>
                     </li>
                     <li>
-                        <button class="button" onclick="convert_lower_case()" title="全小写">
+                        <button class="button" onclick="convertLowerCase()" title="全小写">
                             <i class="fa-sharp fa-solid fa-l fa-2x"></i>
                         </button>
                     </li>
                     <li>
-                        <button class="button" onclick="convert_title_case()" title="词首大写">
+                        <button class="button" onclick="convertTitleCase()" title="词首大写">
                             <i class="fa-sharp fa-solid fa-t fa-2x"></i>
                         </button>
                     </li>
                     <li>
-                        <button class="button" onclick="convert_sentence_case()" title="句首大写">
+                        <button class="button" onclick="convertSentenceCase()" title="句首大写">
                             <i class="fa-sharp fa-solid fa-s fa-2x"></i>
                         </button>
                     </li>
                     <li>
-                        <button class="button" onclick="convert_inverse_case()" title="大小写反转">
+                        <button class="button" onclick="convertInverseCase()" title="大小写反转">
                             <i class="fa-sharp fa-solid fa-i fa-2x"></i>
                         </button>
                     </li>
@@ -705,13 +705,13 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             }
 
             // case converter
-            function convert_upper_case() {
+            function convertUpperCase() {
                 viewer.innerText = formatPre(editor.getValue().toUpperCase());
             }
-            function convert_lower_case() {
+            function convertLowerCase() {
                 viewer.innerText = formatPre(editor.getValue().toLowerCase());
             }
-            function convert_sentence_case() {
+            function convertSentenceCase() {
                 var result = editor.getValue().toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, function(c) {
                     return c.toUpperCase()
                 });
@@ -721,14 +721,14 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 });
                 viewer.innerText = formatPre(result);
             }
-            function convert_title_case() {
+            function convertTitleCase() {
                 var text = editor.getValue().toLowerCase();
                 text = text.replace(/([a-zA-Z][_'\-a-zA-Z0-9]*)/g, function(word) {
                     return word.charAt(0).toUpperCase() + word.slice(1);
                 });
                 viewer.innerText = formatPre(text);
             }
-            function convert_inverse_case() {
+            function convertInverseCase() {
                 var origin_txt = editor.getValue();
                 var result = '';
                 var i = 0;
