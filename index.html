@@ -245,6 +245,9 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                     <i class="button fa-solid fa-caret-right fa-lg" onclick="findNextMatch()"></i>
                 </div>
             </div>
+            <div class="inputer" style="width:5%">
+                <button class="button fa-solid fa-square-minus fa-1x" onclick="clearInput()" title="清空输入框"></button>
+            </div>
             <div class="inputer">
                 <input type="text" id="input1" oninput="toReplace(this)" placeholder="find" onfocus="this.placeholder=''" onblur="this.placeholder='find'">
                 <input type="text" id="input2" oninput="replaceTo(this)" placeholder="replace" onfocus="this.placeholder=''" onblur="this.placeholder='replace'">
@@ -261,6 +264,8 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             const lineno = document.getElementById("line-no");
             const matchInfo = document.getElementById("match");
             const matchCntInfo = document.getElementById("match-cnt");
+            const input1 = document.getElementById("input1");
+            const input2 = document.getElementById("input2");
             const input3 = document.getElementById("input3");
             const canvas = document.createElement('canvas');
             const context = canvas.getContext('2d');
@@ -323,6 +328,14 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 addLineNo();
             }
 
+            function clearInput() {
+                input1.value = "";
+                input2.value = ""; 
+                input3.value = ""; 
+                toReplace(input1);
+                replaceTo(input2);
+                filterLine(input3);
+            }
             var toReplaceStr = "";
             function toReplace(ele) {
                 toReplaceStr = ele.value;
