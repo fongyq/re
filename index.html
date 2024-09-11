@@ -631,20 +631,16 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 }
             });
             
-            // 监听 copy 行为，把拷贝文本中的空行删除
-            /*
+            // 监听 copy 行为，拷贝文本后处理
             document.addEventListener('copy', (event) => {
                 var toCopy = document.getSelection().toString();
                 // 把 html 的 &nbsp; 替换回空格
-                var toCopy = toCopy.replace(/\u00A0/g, " ");
-                var lines = toCopy.split("\n").filter(line => line.trim());
-                // console.log(lines);
-                var toPaste = lines.join("\n");
+                var toPaste = toCopy.replace(/\u00A0/g, " ");
                 event.clipboardData.setData('text/plain', toPaste);
                 event.preventDefault();
             });
-            */
             const clipboard = new ClipboardJS('.button');
+            
             function popElement(info, boxName, pos, timeout) {
                 var box = document.getElementById(boxName);
                 var boxRect = box.getBoundingClientRect();
