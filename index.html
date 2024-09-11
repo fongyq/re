@@ -222,6 +222,10 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                         <div class="icon-name">Pick</div>
                     </li>
                     <li>
+                        <button class="button fa-solid fa-chart-column fa-2x" onclick="countChar()" ondblclick="countWord()" title="仅保留匹配的字符"></button>
+                        <div class="icon-name">Count</div>
+                    </li>
+                    <li>
                         <button class="button fa-solid fa-paste fa-2x" id="paste" title="粘贴剪切板的文本到输入框"></button>
                         <div class="icon-name">Paste</div>
                     </li>
@@ -325,6 +329,31 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 editor.getWrapperElement().style["font-size"] = fs + "px";
                 editor.refresh();
                 context.font = `${viewStyles.fontSize} ${viewStyles.fontFamily}`;
+                addLineNo();
+            }
+
+            function countAndSort(text) {
+                var json = text.reduce((map, char) => {
+                    if (matchCase == "i") char = char.toLowerCase();
+                    map[char] = (map[char] || 0) + 1;
+                    return map;
+                }, {});
+                var items = Object.keys(json).map((key) => {
+                    return [key, json[key]];
+                });
+                items.sort((l, r) => {return r[1] - l[1]});
+                var sortKeys = [];
+                for (var i in items) sortKeys.push(items[i][0]);
+                return JSON.stringify(json, sortKeys, 4);
+            }
+            function countChar() {
+                var text = editor.getDoc().getValue("\n").split("");
+                viewer.innerText = countAndSort(text);
+                addLineNo();
+            }
+            function countWord() {
+                var text = editor.getDoc().getValue("\n").match(/[-'_0-9a-zA-Z]+/g);
+                viewer.innerText = countAndSort(text);
                 addLineNo();
             }
 
