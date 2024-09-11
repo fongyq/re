@@ -341,7 +341,8 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 var items = Object.keys(json).map((key) => {
                     return [key, json[key]];
                 });
-                items.sort((l, r) => {return r[1] - l[1]});
+                items.sort((l, r) => {
+                    return (r[1] - l[1]) > 0? 1: ((r[1] - l[1]) == 0? (r[0] <= l[0]? 1: -1): -1)});
                 var sortKeys = [];
                 for (var i in items) sortKeys.push(items[i][0]);
                 return JSON.stringify(json, sortKeys, 4);
