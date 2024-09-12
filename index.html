@@ -353,7 +353,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 addLineNo();
             }
             function countWord() {
-                var text = editor.getDoc().getValue("\n").match(/[-'_0-9a-zA-Z]+/g);
+                var text = editor.getDoc().getValue("\n").match(/[-+.0-9]+|[-'_0-9a-zA-Z]+/g);
                 viewer.innerText = countAndSort(text);
                 addLineNo();
             }
