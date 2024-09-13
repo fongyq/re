@@ -427,7 +427,8 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             function replaceTo(ele) {
                 replaceToStr = ele.value;
                 ele.style.width = (ele.value.length + 10) + "ch";
-                replaceToStr = replaceToStr.replace(/\\n/g, "@NEWLINE@");
+                replaceToStr = replaceToStr.replace(/\\n/g, "@NEWLINE@").replace(/\\t/g, "&#09;");
+                replaceToStr = htmlEscape(replaceToStr);
                 replace();
             }
 
