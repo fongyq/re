@@ -82,7 +82,7 @@
                     <li>光标位于文本框内，F11 / Ctrl-B 全屏，Esc 退出全屏。</li>
                     <li>光标位于左侧输入框内，Ctrl-F / Cmd-F 搜索，Ctrl-G / Cmd-G 查找下一个，Shift-Ctrl-G / Shift-Cmd-G 查找上一个，Shift-Ctrl-F / Cmd-Option-F 替换，Alt-G 跳到指定行。</li>
                     <li>正则表达式默认设置为 Global & Multiline 模式。</li>
-                    <li>在长行换行的情况下，生成行号可能会比较慢，可以关闭换行模式或者关闭行号。换行情况下，编辑器内使用光标选择文本有时会有点 bug。</li>
+                    <li>在长行换行的情况下，生成行号可能会比较慢，可以关闭换行模式或者关闭行号。换行情况下，编辑器内使用光标选择文本有时会有点 bug；如果输入文本包含 \t，行号可能会错乱。</li>
                     <li> <span class="code">.*</span> 会匹配空字符串，因此对于非空行会有 2 个匹配。可以使用 <span class="code">.+</span> 匹配非空字符串。</li>
                     <li> <span class="code">^$</span> 匹配空行（不含换行符）；<span class="code">$&</span> 表示匹配到的字符串。</li>
                     <li>匹配中文：<span class="code">[\u4e00-\u9fa5]</span>；匹配双字节字符（包括中文）：<span class="code">[^\x00-\xff]</span>。</li>
@@ -812,16 +812,19 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             function calcStringLines(sentence, width) {
                 if (!width) return 0;
                 const words = sentence.split('');
-                let lineCount = 0;
-                let currentLine = '';
+                var lineCount = 0;
+                // var currentLine = '';
+                var lineWidth = 0;
                 for (let i = 0; i < words.length; i++) {
                     const wordWidth = context.measureText(words[i]).width;
-                    const lineWidth = context.measureText(currentLine).width;
+                    // const lineWidth = context.measureText(currentLine).width;
                     if (lineWidth + wordWidth > width) {
                         lineCount++;
-                        currentLine = words[i];
+                        // currentLine = words[i];
+                        lineWidth = wordWidth;
                     } else {
-                        currentLine += words[i];
+                        // currentLine += words[i];
+                        lineWidth += wordWidth;
                     }
                  }
                  // if (currentLine.trim() !== '') lineCount++;
