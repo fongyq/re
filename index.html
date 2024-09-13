@@ -368,7 +368,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             }
             var toReplaceStr = "";
             function toReplace(ele) {
-                toReplaceStr = ele.value;
+                toReplaceStr = htmlEscape(ele.value);
                 ele.style.width = (ele.value.length + 10) + "ch";
                 replace();
             }
@@ -499,10 +499,14 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 return text;
                 // return "<pre style='padding:0;margin:0'>" + text + "</pre>";
             }
+
+            function htmlEscape(text) {
+                return text.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            }
             
             function replace() {
                 try {
-                    var text = editor.getDoc().getValue("\n");
+                    var text = htmlEscape(editor.getDoc().getValue("\n"));
                     if (filterStr == "") {
                         if (toReplaceStr != "") {
                             filterStr = toReplaceStr;
@@ -517,7 +521,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                     } else {
                         text = filterText(text);
                     }
-                    viewer.innerText = formatPre(text);
+                    viewer.innerHTML = formatPre(text);
                     if (toReplaceStr.length > 0) {
                         const total = cmMark(toReplaceStr);
                         var re = new RegExp(toReplaceStr, "gm" + matchCase);
@@ -753,7 +757,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 viewer.innerText = formatPre(editor.getValue().toLowerCase());
             }
             function convertSentenceCase() {
-                var result = editor.getValue().toLowerCase().replace(/^(\s*)(\w)/gm, (...args) => {
+                var result = htmlEscape(editor.getDoc().getValue("\n")).toLowerCase().replace(/^(\s*)(\w)/gm, (...args) => {
                     return args[1] + "<span class='replacement'>" + args[2].toUpperCase() + "</span>"
                 });
                 result = result.replace(/(?<=\w\.|!|\?)(\s*)(\w)/g, (...args) => {
@@ -766,7 +770,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 viewer.innerHTML = result;
             }
             function convertTitleCase() {
-                var result = editor.getValue().toLowerCase();
+                var result = htmlEscape(editor.getDoc().getValue("\n")).toLowerCase();
                 result = result.replace(/([a-zA-Z][_'\-a-zA-Z0-9]*)/g, function(word) {
                     return "<span class='replacement'>" + word.charAt(0).toUpperCase() + "</span>" + word.slice(1);
                 });
