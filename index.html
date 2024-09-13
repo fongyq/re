@@ -86,7 +86,7 @@
                     <li> <span class="code">.*</span> 会匹配空字符串，因此对于非空行会有 2 个匹配。可以使用 <span class="code">.+</span> 匹配非空字符串。</li>
                     <li> <span class="code">^$</span> 匹配空行（不含换行符）；<span class="code">$&</span> 表示匹配到的字符串。</li>
                     <li>匹配中文：<span class="code">[\u4e00-\u9fa5]</span>；匹配双字节字符（包括中文）：<span class="code">[^\x00-\xff]</span>。</li>
-                    <li> <span class="code">\U$1\U</span> 可以将捕获的第一个匹配转换为全大写，<span class="code">\L$1\L</span> 转换为全小写。</li>
+                    <li> <span class="code">\U$1</span> 可以将捕获的第一个匹配转换为全大写，<span class="code">\L$1</span> 转换为全小写。</li>
                     <li>参考：
                         <a href="https://regex101.com" target="_blank">https://regex101.com</a>，
                         <a href="https://www.fangyq.cn/docs/regularExpression/01_character.html" target="_blank">https://www.fangyq.cn/docs/regularExpression</a>。
@@ -437,8 +437,12 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
 
             function applyCustomCaseRE() {
                 var h = viewer. innerHTML;
-                h = h.replace(/\\U((?!\\U|\\L).)*\\U/g, (s) => { return s.replace(/\\U/g, "").toUpperCase()});
-                h = h.replace(/\\L((?!\\U|\\L).)*\\L/g, (s) => { return s.replace(/\\L/g, "").toLowerCase()});
+                // h = h.replace(/\\U((?!\\U|\\L).)*\\U/g, (s) => { return s.replace(/\\U/g, "").toUpperCase();});
+                // h = h.replace(/\\L((?!\\U|\\L).)*\\L/g, (s) => { return s.replace(/\\L/g, "").toLowerCase();});
+                h = h.replace(/(\\U|\\L)((?!\\U|\\L).)*/g, (s) => { 
+                    if (s.startsWith("\\U")) return s.replace(/\\U/g, "").toUpperCase();
+                    else return s.replace(/\\L/g, "").toLowerCase();
+                });
                 viewer.innerHTML = h;
             }
 
