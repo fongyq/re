@@ -368,7 +368,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             }
             var toReplaceStr = "";
             function toReplace(ele) {
-                toReplaceStr = htmlEscape(ele.value);
+                toReplaceStr = ele.value;
                 ele.style.width = (ele.value.length + 10) + "ch";
                 replace();
             }
@@ -452,7 +452,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 }
                 var lines = text.split("\n");
                 var result = [];
-                var re = new RegExp(filterStr, "gm" + matchCase);
+                var re = new RegExp(htmlEscape(filterStr), "gm" + matchCase);
                 lines.forEach(line => {
                     if (line.match(re)) result.push(line);
                 });
@@ -524,14 +524,14 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                     viewer.innerHTML = formatPre(text);
                     if (toReplaceStr.length > 0) {
                         const total = cmMark(toReplaceStr);
-                        var re = new RegExp(toReplaceStr, "gm" + matchCase);
+                        var re = new RegExp(htmlEscape(toReplaceStr), "gm" + matchCase);
                         showReplaceInfo(re, text, total);
                         text = text.replace(re, "<span class='replacement'>" + replaceToStr + "</span>");
                         viewer.innerHTML = formatPre(text);
                         placeholderRecover();
                     } else {
                         if (filterStr != "") {
-                            var re = new RegExp(filterStr, "gm" + matchCase);
+                            var re = new RegExp(htmlEscape(filterStr), "gm" + matchCase);
                             text = text.replace(re, "<span class='replacement'>$&</span>");
                             viewer.innerHTML = formatPre(text);
                         }
