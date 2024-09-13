@@ -771,7 +771,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 viewer.innerHTML = result;
             }
             function convertTitleCase() {
-                var result = htmlEscape(editor.getDoc().getValue("\n")).toLowerCase();
+                var result = editor.getDoc().getValue("\n").toLowerCase();
                 result = result.replace(/([a-zA-Z][_'\-a-zA-Z0-9]*)/g, function(word) {
                     return "<span class='replacement'>" + word.charAt(0).toUpperCase() + "</span>" + word.slice(1);
                 });
