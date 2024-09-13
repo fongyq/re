@@ -437,9 +437,9 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
 
             function applyCustomCaseRE() {
                 var h = viewer. innerHTML;
-                h = h.replace(/\\U((?!\\U||\\L).)*\\U/g, (s) => { return s.replace(/\\U/g, "").toUpperCase()});
-                h = h.replace(/\\L((?!\\U||\\L).)*\\L/g, (s) => { return s.replace(/\\L/g, "").toLowerCase()});
-                viewer .innerHTML = h;
+                h = h.replace(/\\U((?!\\U|\\L).)*\\U/g, (s) => { return s.replace(/\\U/g, "").toUpperCase()});
+                h = h.replace(/\\L((?!\\U|\\L).)*\\L/g, (s) => { return s.replace(/\\L/g, "").toLowerCase()});
+                viewer.innerHTML = h;
             }
 
             function isMatch(src, tgt) {
