@@ -427,7 +427,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             function replaceTo(ele) {
                 replaceToStr = ele.value;
                 ele.style.width = (ele.value.length + 10) + "ch";
-                replaceToStr = replaceToStr.replace(/\\n/g, "@NEWLINE@").replace(/\\t/g, "&#09;");
+                replaceToStr = replaceToStr.replace(/\\n/g, "&#10;").replace(/\\t/g, "&#09;");
                 replaceToStr = htmlEscape(replaceToStr);
                 replace();
             }
@@ -543,7 +543,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                         text = text.replace(re, "<span class='replacement'>" + replaceToStr + "</span>");
                         viewer.innerHTML = formatPre(text);
                         applyCustomCaseRE();
-                        placeholderRecover();
+                        // placeholderRecover();
                     } else {
                         if (filterStr != "") {
                             var re = new RegExp(htmlEscape(filterStr), "gm" + matchCase);
