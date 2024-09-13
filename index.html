@@ -439,7 +439,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 var h = viewer. innerHTML;
                 // h = h.replace(/\\U((?!\\U|\\L).)*\\U/g, (s) => { return s.replace(/\\U/g, "").toUpperCase();});
                 // h = h.replace(/\\L((?!\\U|\\L).)*\\L/g, (s) => { return s.replace(/\\L/g, "").toLowerCase();});
-                h = h.replace(/(\\U|\\L)((?!\\U|\\L).)*/g, (s) => { 
+                h = h.replace(/(\\U|\\L)((?!\\U|\\L|<\/span>).)*/g, (s) => { 
                     if (s.startsWith("\\U")) return s.replace(/\\U/g, "").toUpperCase();
                     else return s.replace(/\\L/g, "").toLowerCase();
                 });
