@@ -346,16 +346,19 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                     return (r[1] - l[1]) > 0? 1: ((r[1] - l[1]) == 0? (r[0] <= l[0]? 1: -1): -1)});
                 var sortKeys = [];
                 for (var i in items) sortKeys.push(items[i][0]);
-                return JSON.stringify(json, sortKeys, 4);
+                var s = JSON.stringify(json, sortKeys, 4);
+                s = s.replace(/\\"/g, '"');
+                s = s.replace(/"(.+)":/g, '"<span class="replacement">$1</span>":');
+                return s;
             }
             function countChar() {
                 var text = editor.getDoc().getValue("\n").split("");
-                viewer.innerText = countAndSort(text);
+                viewer.innerHTML = countAndSort(text);
                 addLineNo();
             }
             function countWord() {
                 var text = editor.getDoc().getValue("\n").match(/[-+.0-9]+|[-'_0-9a-zA-Z]+/g);
-                if (text) viewer.innerText = countAndSort(text);
+                if (text) viewer.innerHTML = countAndSort(text);
                 else viewer.innerText = "{}";
                 addLineNo();
             }
