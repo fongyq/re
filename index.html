@@ -440,7 +440,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             }
 
             function applyCustomCaseRE() {
-                var h = viewer. innerHTML;
+                var h = viewer.innerHTML;
                 // h = h.replace(/\\U((?!\\U|\\L).)*\\U/g, (s) => { return s.replace(/\\U/g, "").toUpperCase();});
                 // h = h.replace(/\\L((?!\\U|\\L).)*\\L/g, (s) => { return s.replace(/\\L/g, "").toLowerCase();});
                 h = h.replace(/(\\U|\\L|\\H)((?!\\U|\\L|\\H|<\/span>).)*/g, (s) => { 
