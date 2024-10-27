@@ -469,18 +469,16 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                     return text;
                 }
                 var lines = text.split("\n");
+                for (var i = 0; i < lines.length - 1; ++i) {
+                    lines[i] = lines[i] + "\n";
+                }
                 var result = [];
                 var re = new RegExp(htmlEscape(filterStr), "gm" + matchCase);
                 lines.forEach(line => {
                     if (line.match(re)) result.push(line);
                 });
                 var lineCnt = result.length;
-                if (filterStr == "\\n") {
-                    lineCnt = lines.length - 1;
-                    result = text;
-                } else {
-                    result = result.join("\n");
-                }
+                result = result.join("");
                 showFilterInfo(matchCnt, lineCnt);
                 return result;
             }
@@ -519,7 +517,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             }
 
             function htmlEscape(text) {
-                return text.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                return text.replace(/(?<!\?)</g, '&lt;').replace(/>/g, '&gt;');
             }
             
             function replace() {
