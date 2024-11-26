@@ -219,6 +219,10 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                         <div class="icon-name">Bold</div>
                     </li>
                     <li>
+                        <button class="button fa-solid fa-arrow-up-z-a fa-2x" onclick="sortLines()" title="按行排序"></button>
+                        <div class="icon-name">Sort</div>
+                    </li>
+                    <li>
                         <button class="button fa-solid fa-crosshairs fa-2x" onclick="pickMatch()" title="仅保留匹配的字符"></button>
                         <div class="icon-name">Pick</div>
                     </li>
@@ -358,6 +362,17 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
                 if (text) viewer.innerText = countAndSort(text);
                 else viewer.innerText = "{}";
                 addLineNo();
+            }
+
+            var isReverse = false;
+            function sortLines() {
+                var text = editor.getDoc().getValue("\n").split("\n").filter(line => line.trim());
+                text.sort();
+                if (isReverse) {
+                    text.reverse();
+                }
+                isReverse = !isReverse;
+                viewer.innerText = text.join("\n");
             }
 
             function clearInput() {

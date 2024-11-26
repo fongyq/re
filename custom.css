@@ -323,9 +323,9 @@ input::placeholder {
     flex-direction: column;
     justify-content: space-between;
     padding: 0;
-    margin: 5vh 5px; 
+    margin: 1vh 5px; 
     list-style: none;
-    height: 70vh;
+    height: 78vh;
 }
 #button-list-right li {
     list-style-type: none;
