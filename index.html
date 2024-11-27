@@ -852,7 +852,7 @@ Do you still remember the situation in Charles? Spring is approaching, trees and
             
             function calcLines() {
                 const lines = viewer.innerText.split('\n');
-                const textareaContentWidth = $("#view").width();
+                const textareaContentWidth = $("#text2").width() - $("#line-no").outerWidth() - ($("#view").outerWidth() - $("#view").width());
                 const numLines = lines.map(
                     lineString => calcStringLines(lineString, textareaContentWidth));
                 let lineNumbers = [];
